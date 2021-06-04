@@ -4,9 +4,12 @@
 <title>test</title>
 </head>
 <body>
-<p id="js">false</p>
-<script>
-document.getElementById("js").innerHTML = /Mobi/i.test(window.navigator.userAgent);
-</script>
+  <button onclick="test()">test</button>
+  <p id="js">false</p>
+  <script>
+    function test(){
+      document.getElementById("js").innerHTML = /Mobi/i.test(window.navigator.userAgent);
+    }
+    </script>
 </body>
 </html>
