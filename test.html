@@ -6,7 +6,7 @@
 <body>
 <p id="js">false</p>
 <script>
-document.getElementById("js").innerHTML = "true";
+document.getElementById("js").innerHTML = /Mobi/i.test(window.navigator.userAgent);
 </script>
 </body>
 </html>
