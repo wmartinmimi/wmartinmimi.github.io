@@ -13,21 +13,14 @@
         }
 
     </style>
-    <script>
-        function changeRotation(id, degree){
-            document.getElementById(id).style.-webkit-transform = "rotate(90deg)";
-            document.getElementById(id).style.-moz-transform = "rotate(90deg)";
-            document.getElementById(id).style.-ms-transform = "rotate(90deg)";
-            document.getElementById(id).style.-o-transform = "rotate(90deg)";
-            document.getElementById(id).style.transform = "rotate(90deg)";
-        }
-}
-    </script>
 <title>test</title>
 </head>
 <body>
 <img id="test" src="/test/pcar.png" alt="vehicle" width=50%>
 <script>
+function changeRotation(id, degree){
+            document.getElementById(id);.style.transform = "rotate("+ (turn % 360) +"deg)"
+        }
     changeRotation("test", 90);
 </script>
 </body>
