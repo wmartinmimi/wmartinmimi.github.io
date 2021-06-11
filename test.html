@@ -19,10 +19,15 @@
 <img id="test" src="/test/pcar.png" alt="pcar" width=50%>
 
 <script>
+var lastTime;
 function rotate(id, degree){
 document.getElementById(id).style.transform = "rotate("+ degree +"deg)";
 }
-rotate("test", 90);
+function _main(){
+rotate("test", 1);
+}
+setInterval(_main, 20);
+
 
 </script>
 
