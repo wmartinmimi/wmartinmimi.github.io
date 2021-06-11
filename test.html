@@ -3,31 +3,36 @@
 <head>
     <style>
        img {
-            image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
-            image-rendering: -moz-crisp-edges;          /* Firefox                        */
-            image-rendering: -o-crisp-edges;            /* Opera                          */
-            image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
-            image-rendering: pixelated; /* Chrome */
-            image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+            image-rendering: optimizeSpeed;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -o-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: pixelated;
+            image-rendering: optimize-contrast;
             -ms-interpolation-mode: nearest-neighbor;
         }
 
     </style>
-<title>test</title>
+    <title>test</title>
 </head>
 <body>
-<img id="test" src="/test/pcar.png" alt="pcar" width=50%>
+<img id="test" src="https://wmartinmimi.github.io/test/pcar.png" alt="pcar" width=50%>
 
 <script>
-var lastTime;
-function rotate(id, degree){
-document.getElementById(id).style.transform = "rotate("+ degree +"deg)";
-}
-function _main(){
-rotate("test", 5);
-}
-var main = window.setInterval(_main, 2000);
 
+function rotateTo(id, degree){
+	document.getElementById(id).style.transform = "rotate("+ degree +"deg)";
+}
+
+/* variables for main function */
+var carRotation = 0;
+
+function main(){
+	carRotation += 1;
+	rotateTo("test", carRotation);
+}
+
+var _main = setInterval( main , 20);
 
 </script>
 
