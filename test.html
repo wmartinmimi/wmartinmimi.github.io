@@ -16,12 +16,15 @@
 <title>test</title>
 </head>
 <body>
-<img id="test" src="/test/pcar.png" alt="vehicle" width=50%>
+<img id="test" src="/test/pcar.png" alt="pcar">
+
 <script>
-function changeRotation(id, degree){
-            document.getElementById(id);.style.transform = "rotate("+ degree +"deg)"
-        }
-    changeRotation("test", 90);
+function rotate(id, degree){
+document.getElementById(id).style.transform = "rotate("+ degree +"deg)";
+}
+rotate("test", 90);
+
 </script>
+
 </body>
 </html>
