@@ -4,6 +4,23 @@
     <title>test</title>
   </head>
   <body>
-    <input type="text" placeholder="Search in website ..."><button>Go</button>
+    <input id="search_box" type="text" placeholder="Search in website ...">
+    <table id="result">
+      <tr>
+      <th>results :</th>
+      </tr>
+    </table>
+    <script>
+      
+      var search_term = document.getElementById('search_box').value
+      var result = document.getElementById("result");
+      while (true) {
+      //var result_row = result.parentNode.insertRow( result.rowIndex + 1 );
+       console.log("search_box = " + document.getElementById('search_box').value);
+       //var result_row = document.createElement('tr');
+      // result_row.insertCell(0).innerHTML = "test";
+      //result.insertAfter(result, 0);
+    }
+      </script>
   </body>
 </html>
