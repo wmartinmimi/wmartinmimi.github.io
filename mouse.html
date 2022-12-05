@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>mouse detection</title>
+</head>
+
+<body>
+  <p id="output"></p>
+  <script>
+    function output(str){
+      document.getElementById("output").innerText = str;
+    }
+    window.addEventListener("mousedown", event => {
+      output("mouse down")
+    })
+
+    window.addEventListener("mouseup", event => {
+      output("mouse up")
+    })
+
+    window.addEventListener("mousemove", event => {
+      output("mouse move")
+    })
+
+    window.addEventListener("touchdown", event => {
+      output("touch down")
+    })
+
+    window.addEventListener("touchup", event => {
+      output("touch up")
+    })
+
+    window.addEventListener("touchmove", event => {
+      output("touch move")
+    })
+  </script>
+</body>
+
+</html>
