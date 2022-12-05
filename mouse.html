@@ -1,40 +1,57 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <title>mouse detection</title>
-</head>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mouse detection</title>
+  </head>
 
-<body>
-  <p id="output"></p>
-  <script>
+  <body>
+    <pre id="output"></pre>
+    <script>
     function output(str){
-      document.getElementById("output").innerText = str;
+      let out = document.getElementById("output");
+      out.innerHTML += "\n" + str;
     }
+
+    var touchup = false;
+    var touchdown = false;
     window.addEventListener("mousedown", event => {
-      output("mouse down")
-    })
+      if (touchdown)
+      return;
+      output("mouse down");
+      touchdown = false;
+    });
 
     window.addEventListener("mouseup", event => {
-      output("mouse up")
-    })
+      if (touchup)
+      return;
+      output("mouse up");
+      touchup = false;
+    });
 
     window.addEventListener("mousemove", event => {
-      output("mouse move")
-    })
+      output("mouse move");
+    });
 
-    window.addEventListener("touchdown", event => {
-      output("touch down")
-    })
+    window.addEventListener("touchend", event => {
+      touchdown = true;
+      output("touch down");
+    });
 
-    window.addEventListener("touchup", event => {
-      output("touch up")
-    })
+    window.addEventListener("touchstart", event => {
+      touchup = true;
+      output("touch up");
+    });
 
     window.addEventListener("touchmove", event => {
-      output("touch move")
-    })
-  </script>
-</body>
+      output("touch move");
+    });
+
+    window.addEventListener("scroll", event => {
+      output("scroll: " + window.pageYOffset);
+    });
+    </script>
+  </body>
 
 </html>
