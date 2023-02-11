@@ -185,7 +185,24 @@
         document.title = $('#markdown>h1').first().text();
 
         $('a[href]').click(function (e) {
-          let link = new URL(this.href);
+          let href = $(this).attr('href');
+          let link = null;
+          try {
+            link = new URL(href);
+          } catch {
+            if (!href.startsWith("/")) {
+              console.log(path);
+              let segs = path.split("/");
+              let pwd = "";
+              for (let i = 0; i < segs.length - 1; i++) {
+                pwd += segs[i] + "/";
+              }
+              href = pwd + href;
+            }
+            href = window.location.protocol + '//' + window.location.hostname + href;
+            link = new URL(href);
+          }
+          
           // if same domain
           if (link.hostname !== window.location.hostname) {
             return;
