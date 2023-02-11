@@ -7,10 +7,6 @@
 - Use mainly java
 - Currently preparing for the big exam, sadly (sorry if I can't code as much!)
 
-## Stats (why not)
-
-[![wmartinmimi's GitHub stats](https://github-readme-stats.vercel.app/api?username=wmartinmimi&count_private=true&show_icons=true&include_all_commits=true)](https://github.com/wmartinmimi)
-
 ## Repositories I am proud of
 
 - [Little Music Player](https://github.com/martinmimigames/little-music-player)
