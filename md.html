@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <!--wmartinmimi/md.html-->
+  <!--MIT Licensed https://github.com/wmartinmimi/md.html/blob/main/LICENSE-->
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--jquery-->
+    <!--MIT Licensed https://github.com/jquery/jquery/blob/main/LICENSE.txt-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <!--drawdown | markdown rendering-->
+    <!--MIT Licensed https://github.com/adamvleggett/drawdown/blob/master/LICENSE-->
+    <script src="https://cdn.jsdelivr.net/gh/wmartinmimi/md.html@v1.0/drawdown.js"></script>
+
+    <!--katex | latex rendering-->
+    <!--MIT Licensed https://github.com/KaTeX/KaTeX/blob/main/LICENSE-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+      integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+      integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+      integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+      crossorigin="anonymous"></script>
+
+    <!--MIT Licensed https://github.com/Yukaii/github-highlightjs-themes-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wmartinmimi/md.html@v1.0/syntaxhighlight.css">
+
+    <!--BSD 3-Clause Licensed https://github.com/highlightjs/highlight.js/blob/main/LICENSE-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+    <style>
+      * {
+        --hr-color: #cccccc;
+        --quote-line-color: #d3daea;
+        --quote-text-color: #5a636c;
+        --code-color: #d3daea40;
+        --row-2n-color: #f3f3f3;
+        --table-color: #aaaaaa;
+        --main-bg-color: #ffffff;
+        --link-color: #1671dc;
+        --inline-code-color: #eff1f3;
+        color: #24292f;
+        font-family: Segoe UI, Helvetica, Arial, sans-serif;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        * {
+          --hr-color: #30363d;
+          --quote-line-color: #30363d;
+          --code-color: #161b22;
+          --row-2n-color: #161b22;
+          --table-color: #aaaaaa;
+          --main-bg-color: #0d1117;
+          --quote-text-color: #88919b;
+          --inline-code-color: #343941;
+          color: #c9d1d9;
+        }
+      }
+
+      code {
+        font-family: 'Courier New', Courier, monospace;
+        background-color: var(--inline-code-color);
+        padding: 3px;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-radius: 5px;
+      }
+
+      pre>code {
+        display: block;
+        padding: 1em;
+        background: var(--code-color);
+      }
+
+      body {
+        background-color: var(--main-bg-color);
+      }
+
+      a {
+        color: var(--link-color);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration-line: underline;
+      }
+
+      hr {
+        margin: 1em 0;
+        border: 0;
+        border-bottom: 5px solid var(--hr-color);
+      }
+
+      blockquote {
+        margin-left: 0;
+        padding: 0.5em 0 0.5em 2em;
+        border-left: 5px solid var(--quote-line-color);
+        color: var(--quote-text-color);
+      }
+
+      li,
+      code {
+        margin: 0.4em 0;
+      }
+
+      p {
+        margin: 0.9em 0;
+      }
+
+      table {
+        border-spacing: 0;
+        border-collapse: collapse;
+      }
+
+      td {
+        padding: 4px 8px;
+      }
+
+      tr:nth-child(2n) {
+        background-color: var(--row-2n-color);
+      }
+
+      th {
+        border-bottom: 1px solid var(--table-color);
+      }
+
+      #markdown {
+        margin: 0;
+        padding: 0.5em;
+        overflow: auto;
+        font-size: 1em;
+        line-height: 1.3;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="markdown"></div>
+    <script>
+      // namespace issue
+      parser = markdown
+      renderLatex = renderMathInElement
+
+      async function getText(path) {
+        let response = await fetch(path);
+        if (response.ok) {
+          return await response.text();
+        }
+        return false;
+      }
+
+      // Make sure it points to a markdown file
+      function isPathMd(path) {
+        if (path.endsWith(".md") || path.endsWith(".markdown")) {
+          return path;
+        }
+        return null;
+      }
+
+      function getQueryPath() {
+        // Gets URL parameters 
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        let path = null;
+
+        // Get URL path parameter 
+        if (urlParams.has('path')) {
+          path = urlParams.get('path');
+        }
+
+        // if empty: path -> null
+        return path;
+      }
+
+      async function renderMd(path) {
+        // Get markdown element
+        $('#markdown').html(parser(await getText(path)));
+
+        // dynamic title
+        document.title = $('#markdown>h1').first().text();
+
+        $('a[href]').click(function (e) {
+          let link = new URL(this.href);
+          // if same domain
+          if (link.hostname !== window.location.hostname) {
+            return;
+          }
+          // if markdown
+          if (!isPathMd(link.pathname)) {
+            return;
+          }
+          // open markdown
+          e.preventDefault()
+          link = new URL(window.location.href.replace(window.location.search, '') + '?path=' + link.pathname)
+          window.open(link, '_self');
+        })
+        hljs.highlightAll();
+        renderLatex(document.body);
+      }
+
+      async function main() {
+        let path = getQueryPath();
+        if (path === null) {
+          let response = await fetch('/index.md');
+          if (response.ok) {
+            renderMd('/index.md');
+            return;
+          } else {
+            renderMd('/README.md');
+            return;
+          }
+        } else {
+          if (!isPathMd(path)) {
+            // open without saving current url to history
+            window.location.replace(path);
+            return;
+          }
+          let response = await fetch(path);
+          if (response.ok) {
+            renderMd(path);
+            return;
+          } else {
+            // open without saving current url to history
+            window.location.replace(path);
+            return;
+          }
+        }
+      }
+      main();
+
+    </script>
+  </body>
+
+</html>
