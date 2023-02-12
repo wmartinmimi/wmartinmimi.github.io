@@ -24,21 +24,22 @@
         let json = await response.json();
         console.log(json);
 
-        response = await fetch(json.licenses);
-        let licenses = await response.json();
-        for (license of licenses){
-          let output = "Library: " + license.name;
-          output += "\nLicense type: " + license.type;
-          output += "\nLicense url: " + license.url;
-          console.log(output)
-        }
-        console.log("License json available at: " + json.licenses);
+        fetch(json.licenses).then(async (response) => {
+          let licenses = await response.json();
+          for (license of licenses) {
+            let output = "Library: " + license.name;
+            output += "\nLicense type: " + license.type;
+            output += "\nLicense url: " + license.url;
+            console.log(output)
+          }
+          console.log("License json available at: " + json.licenses);
+        });
 
         for (url of json.js) {
           let js = document.createElement("script");
           js.src = url;
           js.async = false;
-          js.defer = true;
+          js.defer = false;
           document.head.appendChild(js);
         }
 
@@ -52,4 +53,5 @@
       main();
     </script>
   </body>
+
 </html>
