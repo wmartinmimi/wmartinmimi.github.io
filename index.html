@@ -6,7 +6,6 @@
     other licenses from imported library will be displayed in browser console,
     and also availble in https://github.com/wmartinmimi/md.html/licenses.json
     -->
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,8 +13,8 @@
 
   <body>
     <p id="js_required_warning">This is a markdown viewer that requires javascript to be enabled.</p>
-    <section id="popup-overlay"></section>
     <div id="markdown"></div>
+    <section id="popup-overlay"></section>
     <script>
       async function main() {
         document.querySelector("#js_required_warning").style.display = 'none';
@@ -30,9 +29,9 @@
             let output = "Library: " + license.name;
             output += "\nLicense type: " + license.type;
             output += "\nLicense url: " + license.url;
-            console.log(output)
+            console.info(output)
           }
-          console.log("License json available at: " + json.licenses);
+          console.info("License json available at: " + json.licenses);
         });
 
         for (url of json.js) {
@@ -53,5 +52,4 @@
       main();
     </script>
   </body>
-
 </html>
