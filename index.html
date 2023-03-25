@@ -16,10 +16,22 @@
     <div id="markdown"></div>
     <section id="popup-overlay"></section>
     <script>
+      // flags
+      let auto_update = true;
+
+      // info
+      let md_html_version = 0;
+
       async function main() {
         document.querySelector("#js_required_warning").style.display = 'none';
 
-        let response = await fetch('https://raw.githubusercontent.com/wmartinmimi/md.html/main/release.json');
+        let response = null;
+        if (auto_update) {
+          response = await fetch('https://cdn.jsdelivr.net/gh/wmartinmimi/md.html/release.json');
+        } else {
+          response = await fetch('https://cdn.jsdelivr.net/gh/wmartinmimi@2.6/md.html/release.json');
+        }
+        
         let json = await response.json();
         console.log(json);
 
@@ -29,7 +41,7 @@
             let output = "Library: " + license.name;
             output += "\nLicense type: " + license.type;
             output += "\nLicense url: " + license.url;
-            console.info(output)
+            console.info(output);
           }
           console.info("License json available at: " + json.licenses);
         });
@@ -45,8 +57,12 @@
         for (url of json.css) {
           let link = document.createElement("link");
           link.href = url;
-          link.rel = "stylesheet"
+          link.rel = "stylesheet";
           document.head.appendChild(link);
+        }
+
+        if (json.md_html > md_html_version) {
+          console.warn("md.html html update available! | Error 1 | Please check https://github.com/wmartinmimi/md.html for more information");
         }
       }
       main();
