@@ -35,31 +35,35 @@
       </div>
     </nav>
 
-    <div class="bg-primary text-bg-primary">
-      <div class="mb-4 p-5 container">
+    <div class="p-3 bg-primary text-bg-primary">
+      <div class="p-5 container shadow rounded">
         <h1>Hello from Martinmimi</h1>
       <hr>
       </div>
     </div>
     <div class="container">
       <h2 class="my-4">Description</h2>
-      <ul>
-        <li>Enthusiastic programmer/learner</li>
-        <li>Hot chocolate enjoyer</li>
-        <li>Use primarily Java</li>
-        <li>Currently trying new random things</li>
-      </ul>
+      <div class="card border-0 shadow hover-enlarge">
+        <div class="card-body">
+        <ul class="card-text">
+          <li>Enthusiastic programmer/learner</li>
+          <li>Hot chocolate enjoyer</li>
+          <li>Use primarily Java</li>
+          <li>Currently trying new random things</li>
+        </ul>
+        </div>
+      </div>
       <hr>
     </div>
     <div class="container">
       <h2 class="my-4">Projects</h2>
       <div id="project-cards-container"></div>
       <template id="project-card-template">
-        <div class="card my-1 hover-enlarge shadow border-0">
+        <div class="card my-2 hover-enlarge shadow border-0">
           <div class="card-body">
             <h5 id="title" class="card-title"></h5>
             <p id="description" class="card-text"></p>
-            <a id="link" href="#" class="btn btn-primary hover-shrink">More info here</a>
+            <a id="link" href="#" class="btn btn-primary shadow hover-shrink">More info here</a>
           </div>
         </div>
       </template>
@@ -69,9 +73,11 @@
     
     <div class="container">
       <h2 class="my-4">Contacts</h2>
-      <div class="container">
-        <h5>By Email</h5>
-        <a href="mailto:wmartinmimipub@gmail.com">wmartinmimipub@gmail.com</a>
+      <div class="card shadow border-0 hover-enlarge">
+        <div class="card-body">
+          <h5 class="card-title">By Email</h5>
+          <a class="card-link" href="mailto:wmartinmimipub@gmail.com">wmartinmimipub@gmail.com</a>
+        </div>
       </div>
     </div>
 
