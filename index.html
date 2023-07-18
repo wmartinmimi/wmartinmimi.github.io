@@ -1,71 +1,105 @@
 <!DOCTYPE html>
-<html>
-  <!--wmartinmimi/md.html-->
-  <!--MIT Licensed https://github.com/wmartinmimi/md.html/blob/main/LICENSE-->
-  <!--
-    other licenses from imported library will be displayed in browser console,
-    and also availble in https://github.com/wmartinmimi/md.html/licenses.json
-    -->
+<html lang="en">
+
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="/res/defaults/default.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <p id="js_required_warning">This is a markdown viewer that requires javascript to be enabled.</p>
-    <div id="markdown"></div>
-    <section id="popup-overlay"></section>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="https://github.com/wmartinmimi">Martinmimi</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapser">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-collapser">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Homepage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/tools.html">Tools I use</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/wmartinmimi">Github profile</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="bg-primary text-bg-primary">
+      <div class="mb-4 p-5 container">
+        <h1>Hello from Martinmimi</h1>
+      <hr>
+      </div>
+    </div>
+    <div class="container">
+      <h2 class="my-4">Description</h2>
+      <ul>
+        <li>Enthusiastic programmer/learner</li>
+        <li>Hot chocolate enjoyer</li>
+        <li>Use primarily Java</li>
+        <li>Currently trying new random things</li>
+      </ul>
+      <hr>
+    </div>
+    <div class="container">
+      <h2 class="my-4">Projects</h2>
+      <div id="project-cards-container"></div>
+      <template id="project-card-template">
+        <div class="card my-1 hover-enlarge shadow border-0">
+          <div class="card-body">
+            <h5 id="title" class="card-title"></h5>
+            <p id="description" class="card-text"></p>
+            <a id="link" href="#" class="btn btn-primary hover-shrink">More info here</a>
+          </div>
+        </div>
+      </template>
+      <hr>
+    </div>
+
+    
+    <div class="container">
+      <h2 class="my-4">Contacts</h2>
+      <div class="container">
+        <h5>By Email</h5>
+        <a href="mailto:wmartinmimipub@gmail.com">wmartinmimipub@gmail.com</a>
+      </div>
+    </div>
+
+
+    <div class="bg-primary text-bg-primary">
+      <div class="mt-4 p-5 container">
+        <p>Copyright © 2023 Martinmimi</p>
+      <hr>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"></script>
     <script>
-      // flags
-      let auto_update = true;
-
-      // info
-      let md_html_version = 0;
-
-      async function main() {
-        document.querySelector("#js_required_warning").style.display = 'none';
-
-        let response = null;
-        if (auto_update) {
-          response = await fetch('https://cdn.jsdelivr.net/gh/wmartinmimi/md.html/release.json');
-        } else {
-          response = await fetch('https://cdn.jsdelivr.net/gh/wmartinmimi@2.6/md.html/release.json');
+      $.get("/projects/projects.json", (projects) => {
+        let template = $("#project-card-template");
+        let container = $("#project-cards-container");
+        for (let project of projects) {
+          let card = $(template.html());
+          card.find("#title").text(project.title);
+          card.find("#description").text(project.description);
+          card.find("#link").attr("href", project.link);
+          card.find("#link").attr("alt", project.link);
+          container.append(card);
         }
-        
-        let json = await response.json();
-        console.log(json);
-
-        fetch(json.licenses).then(async (response) => {
-          let licenses = await response.json();
-          for (license of licenses) {
-            let output = "Library: " + license.name;
-            output += "\nLicense type: " + license.type;
-            output += "\nLicense url: " + license.url;
-            console.info(output);
-          }
-          console.info("License json available at: " + json.licenses);
-        });
-
-        for (url of json.js) {
-          let js = document.createElement("script");
-          js.src = url;
-          js.async = false;
-          js.defer = false;
-          document.head.appendChild(js);
-        }
-
-        for (url of json.css) {
-          let link = document.createElement("link");
-          link.href = url;
-          link.rel = "stylesheet";
-          document.head.appendChild(link);
-        }
-
-        if (json.md_html > md_html_version) {
-          console.warn("md.html html update available! | Error 1 | Please check https://github.com/wmartinmimi/md.html for more information");
-        }
-      }
-      main();
+      });
     </script>
   </body>
+
 </html>
