@@ -25,14 +25,14 @@
     "link": "https://github.com/wmartinmimi/apk-devtool"
   },
   {
-    "title": "lil-http-server4j",
-    "description": "An experimental http server for utilising virtual thread features.",
-    "link": "https://github.com/wmartinmimi/lil-http-server4j"
-  },
-  {
     "title": "md.html",
     "description": "Convert markdown to html on the fly, client-based js pre-styled markdown viewer.",
     "link": "https://github.com/wmartinmimi/md.html"
+  },
+  {
+    "title": "lil-http-server4j",
+    "description": "An experimental http server for utilising virtual thread features.",
+    "link": "https://github.com/wmartinmimi/lil-http-server4j"
   },
   {
     "title": "markdown-html",

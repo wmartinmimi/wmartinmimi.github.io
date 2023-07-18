@@ -22,13 +22,13 @@
         <div class="collapse navbar-collapse" id="navbar-collapser">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="#">Homepage</a>
+              <a class="nav-link" href="/">Homepage</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/about/tools.html">Tools I use</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/projects/">All my projects</a>
+              <a class="nav-link" href="#">All my projects</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="https://github.com/wmartinmimi">Github profile</a>
@@ -40,26 +40,12 @@
 
     <div class="p-3 bg-primary text-bg-primary">
       <div class="p-5 container shadow rounded">
-        <h1>Hello from Martinmimi</h1>
+        <h1>All my projects</h1>
       <hr>
       </div>
     </div>
     <div class="container">
-      <h2 class="my-4">Description</h2>
-      <div class="card border-0 shadow hover-enlarge">
-        <div class="card-body">
-        <ul class="card-text">
-          <li>Enthusiastic programmer/learner</li>
-          <li>Hot chocolate enjoyer</li>
-          <li>Use primarily Java</li>
-          <li>Currently trying new random things</li>
-        </ul>
-        </div>
-      </div>
-      <hr>
-    </div>
-    <div class="container">
-      <h2 class="my-4">Best projects</h2>
+      <h2 class="my-4">All projects</h2>
       <div id="project-cards-container"></div>
       <template id="project-card-template">
         <div class="card my-2 hover-enlarge shadow border-0">
@@ -70,21 +56,7 @@
           </div>
         </div>
       </template>
-      <p>To check out all my projects, go <a href="/projects/">here</a></p>
-      <hr>
     </div>
-
-    
-    <div class="container">
-      <h2 class="my-4">Contacts</h2>
-      <div class="card shadow border-0 hover-enlarge">
-        <div class="card-body">
-          <h5 class="card-title">By Email</h5>
-          <a class="card-link" href="mailto:wmartinmimipub@gmail.com">wmartinmimipub@gmail.com</a>
-        </div>
-      </div>
-    </div>
-
 
     <div class="bg-primary text-bg-primary">
       <div class="mt-4 p-5 container">
@@ -97,17 +69,24 @@
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"></script>
     <script>
-      $.get("/projects/projects.json", (projects) => {
+      function add_project(projects) {
         let template = $("#project-card-template");
         let container = $("#project-cards-container");
         for (let project of projects) {
           let card = $(template.html());
-          card.find("#title").text(project.title);
+          card.find("#title").text(project.full_name);
           card.find("#description").text(project.description);
-          card.find("#link").attr("href", project.link);
+          let link = project.homepage;
+          if (link.length === 0) {
+            link = project.html_url;
+          }
+          card.find("#link").attr("href", link);
           container.append(card);
         }
-      });
+      }
+      $.get("https://api.github.com/users/martinmimigames/repos", add_project);
+
+      $.get("https://api.github.com/users/wmartinmimi/repos", add_project);
     </script>
   </body>
 
