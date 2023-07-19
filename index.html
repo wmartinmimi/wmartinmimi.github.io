@@ -69,7 +69,7 @@
           <div class="card-body">
             <h5 id="title" class="card-title"></h5>
             <p id="description" class="card-text"></p>
-            <a id="link" href="#" class="btn btn-primary shadow hover-shrink">More info here</a>
+            <a id="link" href="#" class="btn btn-primary shadow hover-shrink">More info here <i id="leave" class="bi bi-box-arrow-right"></i></a>
           </div>
         </div>
       </template>
@@ -92,7 +92,7 @@
 
     <div class="bg-primary text-bg-primary">
       <div class="mt-4 p-5 container">
-        <p><small>Copyright © 2023 Martinmimi</small></p>
+        <p><small>Copyright © 2023 Martinmimi <i class="bi bi-heart-fill"></i></small></p>
       <hr>
       </div>
     </div>
@@ -109,6 +109,9 @@
           card.find("#title").text(project.title);
           card.find("#description").text(project.description);
           card.find("#link").attr("href", project.link);
+          if (project.link.startsWith("/")) {
+            card.find("#leave").hide();
+          }
           container.append(card);
         }
       });

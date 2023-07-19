@@ -27,7 +27,7 @@
   {
     "title": "md.html",
     "description": "Convert markdown to html on the fly, client-based js pre-styled markdown viewer.",
-    "link": "https://github.com/wmartinmimi/md.html"
+    "link": "/mdhtml/md.html?path=/mdhtml/README.md"
   },
   {
     "title": "lil-http-server4j",
