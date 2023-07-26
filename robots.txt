@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /*.md$
+Disallow: /404.html
+Allow: /
+Disallow: /robots.txt
+
+Sitemap: https://wmartinmimi.github.io/sitemap.xml
