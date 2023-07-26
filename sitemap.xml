@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wmartinmimi.github.io/</loc>
-    <lastmod>2023-07-19</lastmod>
+    <lastmod>2023-07-26</lastmod>
   </url>
     <url>
     <loc>https://wmartinmimi.github.io/about/tools.html</loc>
@@ -11,6 +11,14 @@
     <url>
     <loc>https://wmartinmimi.github.io/projects/</loc>
     <lastmod>2023-07-19</lastmod>
+  </url>
+    <url>
+    <loc>https://wmartinmimi.github.io/projects/tutorials/</loc>
+    <lastmod>2023-07-26</lastmod>
+  </url>
+    <url>
+    <loc>https://wmartinmimi.github.io/projects/tutorials/quarkus/</loc>
+    <lastmod>2023-07-26</lastmod>
   </url>
     <url>
     <loc>https://wmartinmimi.github.io/projects/tutorials/quarkus/transactions-in-websockets.html</loc>
