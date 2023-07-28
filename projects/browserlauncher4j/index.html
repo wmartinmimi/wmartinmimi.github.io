@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>browserlauncher4j</title>
+    <link rel="canonical" href="https://wmartinmimi.github.io/projects/browserlauncher4j" />
+    <meta name="description" content="browserlauncher4j - a simple java library for launching a default browser.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="/res/defaults/default.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="https://github.com/wmartinmimi">Martinmimi</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapser">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-collapser">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Homepage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/tools.html">Tools I use</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/projects/">All my projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/wmartinmimi">Github profile</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="p-3 bg-primary text-bg-primary">
+      <div class="p-5 container rounded shadow">
+        <h1 class="display-1">browser<wbr>launcher4j</h1>
+        <hr>
+      </div>
+    </div>
+    <div class="container">
+      <h2 class="my-4">Description</h2>
+      <p>A simple java library for launching a default browser.</p>
+      <p>Licensed under MIT License.</p>
+    </div>
+    <div class="container">
+      <h2 class="my-4">Example code</h2>
+
+      <pre><code class="language-java rounded">package com.example;
+
+import io.wmartinmimi.github.browserlauncher4j.BrowserLauncher;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+public class BrowserLauncherTest {
+    public static void main(String[] args) throws URISyntaxException {
+        BrowserLauncher.launch(new URI("https://example.com"));
+    }
+}</code></pre>
+      <p>For more example see <a
+          href="https://github.com/wmartinmimi/browserlauncher4j/blob/main/src/test/java/io/wmartinmimi/github/browserlauncher4j/test/BrowserLauncherTest.java">BrowserLaunchTest</a>.
+      </p>
+      <hr>
+      <h2 class="my-4">Links</h2>
+      <div class="card hover-enlarge shadow border-0">
+        <div class="card-body">
+          <ul class="card-text">
+            <li><a href="https://github.com/wmartinmimi/browserlauncher4j" class="card-link">Source code</a></li>
+            <li><a href="https://github.com/wmartinmimi/browserlauncher4j/issues" class="card-link">Issues</a></li>
+            <li><a href="https://github.com/wmartinmimi/browserlauncher4j/blob/main/LICENSE.md"
+                class="card-link">License</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="bg-primary text-bg-primary">
+      <div class="mt-4 p-5 container">
+        <p><small>Copyright © 2023 Martinmimi <i class="bi bi-heart-fill"></i></small></p>
+        <hr>
+      </div>
+    </div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css"
+      integrity="sha256-BicZsQAhkGHIoR//IB2amPN5SrRb3fHB8tFsnqRAwnk=" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+      href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/base16/material-palenight.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+  </body>
+
+</html>
