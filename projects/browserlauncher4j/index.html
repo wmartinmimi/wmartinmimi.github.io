@@ -60,13 +60,27 @@ import java.net.URISyntaxException;
 
 public class BrowserLauncherTest {
     public static void main(String[] args) throws URISyntaxException {
-        BrowserLauncher.launch(new URI("https://example.com"));
-    }
+        BrowserLauncher.launchBlocking(new URI("https://example.com"));
+  }
 }</code></pre>
       <p>For more example see <a
           href="https://github.com/wmartinmimi/browserlauncher4j/blob/main/src/test/java/io/wmartinmimi/github/browserlauncher4j/test/BrowserLauncherTest.java">BrowserLaunchTest</a>.
       </p>
       <hr>
+      <h2 class="my-4">Add as dependency</h2>
+      <h3 class="my-3">Maven pom.xml</h3>
+      <pre><code class="language-xml rounded">&lt;dependency&gt;
+    &lt;groupId>io.github.wmartinmimi&lt;/groupId&gt;
+    &lt;artifactId>browserlauncher4j&lt;/artifactId&gt;
+    &lt;version>1.0.1&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+      <h3 class="my-3">Gradle</h3>
+      <pre><code class="language-groovy rounded">implementation group: 'io.github.wmartinmimi', name: 'browserlauncher4j', version: '1.0.1'</code></pre>
+      <h3 class="my-3">Gradle (Short)</h3>
+      <pre><code class="language-groovy rounded">implementation 'io.github.wmartinmimi:browserlauncher4j:1.0.1'</code></pre>
+      <h3 class="my-3">Gradle (Kotlin)</h3>
+      <pre><code class="language-kotlin rounded">implementation("io.github.wmartinmimi:browserlauncher4j:1.0.1")</code></pre>
+      <p>For other build system see <a href="https://central.sonatype.com/artifact/io.github.wmartinmimi/browserlauncher4j/1.0.0">here</a>.</p>
       <h2 class="my-4">Links</h2>
       <div class="card hover-enlarge shadow border-0">
         <div class="card-body">
@@ -93,6 +107,7 @@ public class BrowserLauncherTest {
     <link rel="stylesheet"
       href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/base16/material-palenight.min.css">
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/languages/groovy.min.js"></script>
     <script>hljs.highlightAll();</script>
   </body>
 
