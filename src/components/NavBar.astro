@@ -1,0 +1,64 @@
+---
+
+---
+
+<style is:global>
+nav {
+    background-color: #202029;
+    display: grid;
+    justify-items: center;
+    box-shadow: 0 0 15px #00000030;
+}
+
+nav * {
+    color: #e8e8ea;
+    padding: 20px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+nav>a:first-child {
+    justify-self: left;
+    grid-row: 1;
+}
+
+nav>input {
+    display: none;
+}
+
+nav>label {
+    grid-row: 1;
+    justify-self: right;
+}
+
+nav>input~a {
+    display: none;
+    justify-self: center;
+}
+
+nav>input:checked~a {
+    display: inline-block;
+    grid-row-start: 4;
+    grid-column: span 2;
+}
+
+@media (min-width: 840px) {
+    nav>label{
+        display: none; 
+    }
+
+    nav>input~a {
+        display: inline-block;
+        grid-column: auto;
+        grid-row: 1;
+        justify-self: right;
+    }
+}
+</style>
+
+<nav>
+    <a href="/">Martinmimi</a>
+    <input type="checkbox" id="nav-menu">
+    <label for="nav-menu">☰</label>
+    <a href="https://github.com/wmartinmimi">Github</a>
+</nav>
