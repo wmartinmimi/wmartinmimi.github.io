@@ -1,0 +1,33 @@
+---
+const { heading } = Astro.props;
+---
+
+<style>
+    div {
+        background-color: #00000030;
+        border-radius: 5px;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 0 15px #00000030;
+
+        padding: 20px;
+        margin: 20px;
+    }
+
+    h2 {
+        margin: 0px;
+    }
+
+    hr {
+        color: #00000000;
+        border-top: 3px dashed #f1d151;
+        width: min(400px, 100%);
+        margin: 0px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+</style>
+<div class="card">
+    <h2>{heading}</h2>
+    <hr />
+    <slot />
+</div>

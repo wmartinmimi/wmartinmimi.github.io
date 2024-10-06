@@ -1,29 +1,56 @@
 ---
 import Base from "../layouts/Base.astro";
+import Card from "../components/Card.astro";
+import Title from "../components/Title.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { best_projects } from "../data/best_projects";
 ---
 
+<style>
+	
+ul {
+	list-style-type: none;
+	border-left: 3px solid #f1d151;
+	padding: 10px 0px 10px 20px;
+	margin-left: 20px;
+}
+
+li {
+	padding: 5px 0px;
+}
+
+</style>
+
 <Base title="Martinmimi">
-	<h1>Hello From Martinmimi</h1>
-	<hr />
+	<Title title="Hello from Martinmimi" />
 
-    <h2>About myself</h2>
+	<Card heading="About Myself">
+		<p>Who doesn't like a simple introduction? :&gt;</p>
 
-    <p>Who doesn't like a simple introduction? :&gt;</p>
+		<ul>
+			<li>Enthusiastic programmer/learner</li>
+			<li>Hot chocolate enjoyer</li>
+			<li>Use primarily Java</li>
+			<li>Currently trying new random things</li>
+		</ul>
+	</Card>
 
-    <ul>
-        <li>Enthusiastic programmer/learner</li>
-        <li>Hot chocolate enjoyer</li>
-        <li>Use primarily Java</li>
-        <li>Currently trying new random things</li>
-	</ul>
+	<Card heading="Best Projects">
+		<p>These are some of my projects that I'm the most proud of!</p>
+		<!--TODO: Add project list code-->
+		<!--<p>To check out all my projects, visit my project list.</p>-->
+		{best_projects.map((project) => <ProjectCard {...project} />)}
+	</Card>
 
-	<h2>Contacts</h2>
-
-	<ul>
-		<li><a href="mailto:wmartinmimipub@gmail.com">Email</a></li>
-		<li><a href="https://github.com/wmartinmimi">GitHub</a></li>
-	</ul>
-	<hr/>
-
-	<small>This website is still very much under construction.</small>
+	<Card heading="Contacts">
+		<p>If you like to ask about anything, feel free to contact me!</p>
+		<ul>
+			<li>
+				<p>By Email: <a href="mailto:wmartinmimipub@gmail.com">wmartinmimipub@gmail.com</a></p>
+			</li>
+			<li>
+				<p>From Github: <a href="https://github.com/wmartinmimi">wmartinmimi</a></p>
+			</li>
+		</ul>
+	</Card>
 </Base>

@@ -1,0 +1,68 @@
+---
+const { title } = Astro.props;
+---
+
+<style>
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.title-box {
+    text-align: center;
+    padding: 30px 60px;
+
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 15px #00000030;
+    display: inline-block;
+
+    background-color: #484039;
+    margin: 0 auto;
+}
+
+@media (min-width: 840px) {
+    .title-box {
+        margin-top: 20px;
+        transform: skew(-25deg);
+        border-radius: 5px;
+    }
+
+    .title-deco-shadow {
+        transform: skew(25deg);
+    }
+}
+
+.title-deco {
+    border-style: dashed none dashed none;
+    border-width: 3px;
+    border-color: #f1d151;
+    display: inline-block;
+    padding: 0 20px;
+    margin: -3px 0;
+    translate: -2px -2px;
+
+}
+
+.title-deco-shadow {
+    translate: 2px 2px;
+    border-color: #00000030;
+    margin: 0 10px;
+    padding: 0;
+}
+
+h1 {
+    text-shadow: 2px 2px 2px #00000030; 
+}
+
+</style>
+
+<div class="center">
+    <div class="title-box">
+        <div class="title-deco title-deco-shadow">
+            <div class="title-deco">
+                <h1>{title}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
