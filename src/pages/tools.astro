@@ -1,0 +1,46 @@
+---
+import Base from "../layouts/Base.astro";
+import Title from "../components/Title.astro";
+import Card from "../components/Card.astro";
+---
+
+<style is:global>
+    div.card p {
+        margin-left: 20px;
+        color: #a3978b;	
+    }
+</style>
+
+<Base title="Tools I use">
+    <Title title="What I use" />
+
+    <Card heading="Programming Languages">
+        <h3>Java</h3>
+        <p>Useful for Android and complex projects.</p>
+        <h3>Python</h3>
+        <p>Quick prototyping and one-off scripting.</p>
+        <h3>HTML, CSS, JS</h3>
+        <p>Cause the web.</p>
+        <h3>Golang</h3>
+        <p>For servers and headless programs.</p>
+        <h3>C</h3>
+        <p>To build needlessly small programs and building understanding.</p>
+    </Card>
+
+    <Card heading="Editors">
+        <h3>Neovim</h3>
+        <p>My primary editor, customised and really satisfying.</p>
+        <p>See my nvim config <a href="https://github.com/wmartinmimi/nvim-config">Here</a>.</p>
+        <h3>Intellij IDEA</h3>
+        <p>For Android and Java programming.</p>
+    </Card>
+
+    <Card heading="Coding Environments">
+        <h3>WSL 2</h3>
+        <p>A comfy linux like environment in my laptop.</p>
+        <h3>Termux</h3>
+        <p>So I can program on the streets with my phone.</p>
+        <p>Find more about Termux <a href="https://termux.dev/en/">Here</a>.</p>
+    </Card>
+</Base>
+

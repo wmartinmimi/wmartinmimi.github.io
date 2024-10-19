@@ -27,18 +27,18 @@ nav>input {
 }
 
 nav>label {
+    display: inline-block;
     grid-row: 1;
     justify-self: right;
 }
 
-nav>input~a {
+nav>label~* {
     display: none;
     justify-self: center;
 }
 
-nav>input:checked~a {
+nav>input:checked~label~* {
     display: inline-block;
-    grid-row-start: 4;
     grid-column: span 2;
 }
 
@@ -47,11 +47,16 @@ nav>input:checked~a {
         display: none; 
     }
 
+    nav {
+        display: block;
+    }
+
     nav>input~a {
         display: inline-block;
-        grid-column: auto;
-        grid-row: 1;
-        justify-self: right;
+    }
+
+    nav>input~a.sright~a {
+        float: right;
     }
 }
 </style>
@@ -60,5 +65,7 @@ nav>input:checked~a {
     <a href="/">Martinmimi</a>
     <input type="checkbox" id="nav-menu">
     <label for="nav-menu">☰</label>
+    <a href="/projects">Projects</a>
+    <a class="sright" href="/tools">Tools I use</a>
     <a href="https://github.com/wmartinmimi">Github</a>
 </nav>
