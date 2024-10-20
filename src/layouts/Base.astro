@@ -1,6 +1,7 @@
 ---
 import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
+import Title from "../components/Title.astro";
 
 const { title } = Astro.props;
 ---
@@ -33,6 +34,7 @@ const { title } = Astro.props;
 
 	<body>
 		<NavBar />
+		<Title title={title} />
 		<slot />
 		<Footer />
 	</body>
