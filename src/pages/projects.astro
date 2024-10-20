@@ -25,19 +25,19 @@ import ProjectCard from "../components/ProjectCard.astro";
     </template>
 
     <script>
-const pc = document.getElementById("pc");
+const pc = document.getElementById("pc")! as HTMLTemplateElement;
 
-function add_projects(projects) {
+function add_projects(projects: any) {
     for (let project of projects) {
-        let card = pc.content.cloneNode(true);
+        let card = pc.content.cloneNode(true)! as DocumentFragment;
         let link = project.homepage;
         if (link === null || link.length === 0) {
             link = project.html_url;
         }
-        card.querySelector("a").href = link;
-        card.querySelector("h3").textContent = project.full_name;
-        card.querySelector("p").textContent = project.description;
-        document.getElementById("pj").appendChild(card);
+        card.querySelector("a")!.href = link;
+        card.querySelector("h3")!.textContent = project.full_name;
+        card.querySelector("p")!.textContent = project.description;
+        document.getElementById("pj")!.appendChild(card);
     }
 }
 
