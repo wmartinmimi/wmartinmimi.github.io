@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import Card from "../components/Card.astro";
+---
+<Base title="Page Not Found - 404 Error">
+    <Card heading="Cannot Find Request Page">
+
+        <p>It seems that <code id="cl">your link</code> does not point to anywhere valid on this website.</p>
+
+        <p>Try check for any spelling mistakes on the link entered.</p>
+
+    </Card>
+
+    <script>
+    document.getElementById("cl")!.innerText = window.location.href;
+    </script>
+</Base>
