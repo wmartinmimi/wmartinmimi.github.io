@@ -1,5 +1,5 @@
 ---
-
+import { nav_links } from "../data/nav_links";
 ---
 
 <style is:global>
@@ -65,7 +65,7 @@ nav>input:checked~label~* {
     <a href="/">Martinmimi</a>
     <input type="checkbox" id="nav-menu">
     <label for="nav-menu">☰</label>
-    <a href="/projects">Projects</a>
-    <a class="sright" href="/tools">Tools I use</a>
+    { nav_links.slice(0, -1).map((link) => <a href={link.link}>{link.title}</a>) }
+    { nav_links.slice(-1).map((link) => <a href={link.link} class="sright">{link.title}</a>) }
     <a href="https://github.com/wmartinmimi">Github</a>
 </nav>
