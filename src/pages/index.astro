@@ -3,10 +3,11 @@ import Base from "../layouts/Base.astro";
 import Card from "../components/Card.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { best_projects } from "../data/best_projects";
+import Color from "../components/Color.astro";
 ---
 
 <style is:global>
-	
+
 ul {
 	list-style-type: none;
 	border-left: 3px solid #f1d151;
@@ -25,9 +26,9 @@ li {
 		<p>Who doesn't like a simple introduction? :&gt;</p>
 
 		<ul>
-			<li>Enthusiastic programmer/learner</li>
-			<li>Hot chocolate enjoyer</li>
-			<li>Use primarily Java</li>
+            <li><Color color="#a6e3a1">Enthusiastic</Color> programmer/learner</li>
+            <li><Color color="#f2cdcd">Hot chocolate</Color> enjoyer</li>
+            <li>Use primarily <Color color="#f38ba8">Java</Color></li>
 			<li>Currently trying new random things</li>
 		</ul>
 	</Card>
