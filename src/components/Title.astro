@@ -12,7 +12,6 @@ const { title } = Astro.props;
     text-align: center;
     padding: 30px 60px;
 
-    backdrop-filter: blur(5px);
     display: inline-block;
 
     margin: 0 auto;
@@ -37,24 +36,10 @@ const { title } = Astro.props;
     }
 }
 
-#title>div>div>div {
-    border-style: dashed none dashed none;
-    display: inline-block;
-    padding: 0 20px;
-    margin: -3px 0;
-    translate: -2px -2px;
-
-}
-
 #title>div>div {
     border-style: dashed none dashed none;
     translate: 2px 2px;
-    border-color: #00000030;
     margin: 0 10px;
-}
-
-#title h1 {
-    text-shadow: 2px 2px 2px #00000030;
 }
 
 </style>
@@ -62,9 +47,7 @@ const { title } = Astro.props;
 <div id="title">
     <div>
         <div>
-            <div>
-                <h1>{title}</h1>
-            </div>
+            <h1>{title}</h1>
         </div>
     </div>
 </div>
