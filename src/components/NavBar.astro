@@ -4,14 +4,14 @@ import { nav_links } from "../data/nav_links";
 
 <style is:global>
 nav {
-    background-color: #202029;
+    background-color: #11111b;
     display: grid;
     justify-items: center;
     box-shadow: 0 0 15px #00000030;
 }
 
-nav * {
-    color: #e8e8ea;
+nav>a, nav>a:visited {
+    color: #cdd6f4;
     padding: 20px;
     display: inline-block;
     text-decoration: none;
@@ -44,7 +44,7 @@ nav>input:checked~label~* {
 
 @media (min-width: 840px) {
     nav>label{
-        display: none; 
+        display: none;
     }
 
     nav {
