@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://wmartinmimi.github.io/sitemap-index.xml
