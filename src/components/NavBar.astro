@@ -10,7 +10,7 @@ nav {
 }
 
 nav>a, nav>a:visited {
-    color: #cdd6f4;
+    color: #a5adce;
     padding: 20px;
     display: inline-block;
     text-decoration: none;
@@ -57,14 +57,22 @@ nav>input:checked~label~* {
     nav>input~a.sright~a {
         float: right;
     }
+
+    nav>a.current {
+        background-color: #0a0a0e;
+        color: #c6d0f5;
+    }
 }
 </style>
 
 <nav>
-    <a href="/">Martinmimi</a>
+    {<a href="/" class:list={{current: Astro.url.pathname === "/"}}>Martinmimi</a>}
     <input type="checkbox" id="nav-menu">
     <label for="nav-menu">☰</label>
-    { nav_links.slice(0, -1).map((link) => <a href={link.link}>{link.title}</a>) }
-    { nav_links.slice(-1).map((link) => <a href={link.link} class="sright">{link.title}</a>) }
+    { nav_links.map((link, index) =>
+    <a href={link.link} class:list={{
+        current: Astro.url.pathname === link.link,
+        sright: index === nav_links.length - 1,
+    }}>{link.title}</a>) }
     <a href="https://github.com/wmartinmimi">Github</a>
 </nav>
