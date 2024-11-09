@@ -7,6 +7,10 @@ const nav_links = [
         title: "Tools I use",
         link: "/tools",
     },
+    {
+        title: "Links",
+        link: "/links",
+    },
 ];
 
 export {
