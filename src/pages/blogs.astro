@@ -1,0 +1,43 @@
+---
+import Base from "../layouts/Base.astro"
+import Card from "../components/Card.astro"
+
+let blogs:any = import.meta.glob("./blogs/*.astro", { eager: true, import: 'meta' });
+for (const key in blogs) {
+    blogs[key].url = new URL(key.replace(/.astro$/g, ''), Astro.site);
+}
+
+const tags = new Set(Object.values(blogs).map((blog: any) => blog.tags).flat());
+
+const tagged_blogs:any = {};
+tags.forEach((tag) => {
+    tagged_blogs[tag] = Object.values(blogs).filter((blog: any) => blog.tags.includes(tag)).sort((b1:any, b2:any) => (b1.date > b2.date ? -1 : 1));
+});
+---
+
+<style>
+ul {
+	list-style-type: none;
+	border-left: 3px solid #f1d151;
+	padding: 10px 0px 10px 20px;
+	margin-left: 20px;
+}
+
+li {
+	padding: 5px 0px;
+    color: #a6adc8;
+}
+</style>
+
+<Base title="Blogs">
+    { Object.keys(tagged_blogs).map((tag) => {
+        return <Card heading={tag}>
+            <ul>
+                { tagged_blogs[tag].map((blog: any) => {
+                    const url = new URL(blog.url);
+                    return <li><a href={url.pathname}>{blog.title}</a> [{blog.date}]</li>;
+                })}
+            </ul>
+        </Card>;
+    })}
+</Base>

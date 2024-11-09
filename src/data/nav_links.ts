@@ -8,6 +8,10 @@ const nav_links = [
         link: "/tools",
     },
     {
+        title: "Blogs",
+        link: "/blogs",
+    },
+    {
         title: "Links",
         link: "/links",
     },

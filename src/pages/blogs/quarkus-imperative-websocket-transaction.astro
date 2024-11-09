@@ -4,6 +4,12 @@ import Card from "../../components/Card.astro";
 import Code from "../../components/Code.astro";
 import InlineCode from "../../components/InlineCode.astro";
 
+export const meta = {
+    title: "Getting @Transactional to work with Quarkus Websockets",
+    date: "2023-07-26",
+    tags:["Quarkus"],
+}
+
 const code1 = `# src/main/resources/application.properties
 
 # add following line
@@ -18,11 +24,11 @@ public void onMessage(String message) {
 }`;
 ---
 
-<Base title="Getting @Transactional to work with Quarkus Websockets">
+<Base title={meta.title}>
 
     <Card heading="Issue">
         <p><small>Issue as of 2023-07-26.</small></p>
-        <p>Panache entities transactions fail on websocket even with <InlineCode>@Transaction</InlineCode> anotated on endpoint with error <InlineCode>BlockingOperationNotAllowedException: Cannot start a JTA transaction from the IO thread</InlineCode> in the following code.</p>
+        <p>Panache entities transactions fail on websocket even with <InlineCode>@Transaction</InlineCode> annotated on endpoint with error <InlineCode>BlockingOperationNotAllowedException: Cannot start a JTA transaction from the IO thread</InlineCode> in the following code.</p>
         <Code code={code2} lang="java" />
     </Card>
 
