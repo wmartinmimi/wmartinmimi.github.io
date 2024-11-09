@@ -1,0 +1,34 @@
+---
+import Base from "../../layouts/Base.astro";
+import Card from "../../components/Card.astro";
+import Code from "../../components/Code.astro";
+import InlineCode from "../../components/InlineCode.astro";
+
+const code1 = `# src/main/resources/application.properties
+
+# add following line
+quarkus.websocket.dispatch-to-worker = true`;
+
+const code2 = `@Transactional
+@OnMessage
+public void onMessage(String message) {
+  // example transaction stuff...
+  var exampleitem = new ExampleItem();
+  exampleitem.persist();
+}`;
+---
+
+<Base title="Getting @Transactional to work with Quarkus Websockets">
+
+    <Card heading="Issue">
+        <p><small>Issue as of 2023-07-26.</small></p>
+        <p>Panache entities transactions fail on websocket even with <InlineCode>@Transaction</InlineCode> anotated on endpoint with error <InlineCode>BlockingOperationNotAllowedException: Cannot start a JTA transaction from the IO thread</InlineCode> in the following code.</p>
+        <Code code={code2} lang="java" />
+    </Card>
+
+    <Card heading="Fix">
+        <p>The websocket needs to be configured to dispatch to a worker thread.</p>
+        <Code code={code1} lang="properties" />
+        <p>Hope this is helpful to you.</p>
+    </Card>
+</Base>
