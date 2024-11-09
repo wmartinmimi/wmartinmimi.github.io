@@ -23,6 +23,8 @@ const { title } = Astro.props;
 			border-style: none;
 			border-width: 3px;
 			margin: 0;
+            font-family: 'JetBrainsMono';
+            font-weight: 350;
 		}
 
 		p {
@@ -39,6 +41,12 @@ const { title } = Astro.props;
 
         h2 {
             color: #b4befe;
+        }
+
+        @font-face {
+            font-family: 'JetBrainsMono';
+            src: url('/jetbrains-mono.ttf') format('truetype');
+            font-display: swap;
         }
 
 		</style>
