@@ -14,5 +14,6 @@ export default defineConfig({
     },
     integrations: [sitemap({
         lastmod: new Date(new Date().toDateString()),
+        entryLimit: 1000,
     })],
 });
