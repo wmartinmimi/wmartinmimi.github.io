@@ -1,0 +1,59 @@
+---
+import Base from "../../layouts/Base.astro";
+import Card from "../../components/Card.astro";
+import Code from "../../components/Code.astro";
+
+const usage = `package com.example;
+
+import io.wmartinmimi.github.browserlauncher4j.BrowserLauncher;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+public class BrowserLauncherTest {
+    public static void main(String[] args) throws URISyntaxException {
+        BrowserLauncher.launchBlocking(new URI("https://example.com"));
+  }
+}`;
+
+const maven = `<dependency>
+    <groupId>io.github.wmartinmimi</groupId>
+    <artifactId>browserlauncher4j</artifactId>
+    <version>1.0.1</version>
+</dependency>`;
+
+const gradle = `implementation group: 'io.github.wmartinmimi', name: 'browserlauncher4j', version: '1.0.1'`;
+
+const gradleShort = `implementation 'io.github.wmartinmimi:browserlauncher4j:1.0.1'`;
+
+const gradleKotlin = `implementation("io.github.wmartinmimi:browserlauncher4j:1.0.1")`;
+---
+
+<Base title="BrowserLauncher4J">
+    <Card heading="Description">
+        <p>A simple java library for launching a default browser.</p>
+        <p>Licensed under MIT License.</p>
+    </Card>
+
+    <Card heading="Usage">
+        <Code code={usage} lang="java" />
+        <p>For more examples see <a href="https://github.com/wmartinmimi/browserlauncher4j/blob/main/src/test/java/io/wmartinmimi/github/browserlauncher4j/test/BrowserLauncherTest.java">BrowserLauncherTest.java</a>.
+    </Card>
+
+    <Card heading="Add as Dependency">
+        <h3>Maven</h3>
+        <Code code={maven} lang="xml" />
+        <h3>Gradle</h3>
+        <Code code={gradle} lang="groovy" />
+        <h3>Gradle (Shorthand)</h3>
+        <Code code={gradleShort} lang="groovy" />
+        <h3>Gradle (Kotlin)</h3>
+        <Code code={gradleKotlin} lang="kotlin" />
+        <p>For other build systems see <a href="https://central.sonatype.com/artifact/io.github.wmartinmimi/browserlauncher4j/1.0.0">here</a>.</p>
+    </Card>
+
+    <Card heading="Links">
+        <p><a href="https://github.com/wmartinmimi/browserlauncher4j">Source Code</a></p>
+        <p><a href="https://github.com/wmartinmimi/browserlauncher4j/issues">Issues</a></p>
+        <a href="https://github.com/wmartinmimi/browserlauncher4j/blob/main/LICENSE.md">License</a>
+    </Card>
+</Base>
