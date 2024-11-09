@@ -5,6 +5,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
     site: 'https://wmartinmimi.github.io',
     output: 'static',
+    outDir: 'docs',
     markdown: {
         shikiConfig: {
             theme: 'catppuccin-mocha',
