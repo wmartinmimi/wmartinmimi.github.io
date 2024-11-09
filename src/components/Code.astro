@@ -1,0 +1,12 @@
+---
+import { Code as AstroCode } from 'astro:components';
+---
+
+<style>
+pre.astro-code {
+    padding: 15px;
+    border-radius: 7px;
+}
+</style>
+
+<p><AstroCode code={Astro.props.code} lang={Astro.props.lang} theme="catppuccin-mocha"/></p>

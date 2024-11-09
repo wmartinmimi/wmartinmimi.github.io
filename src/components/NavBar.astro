@@ -1,0 +1,78 @@
+---
+import { nav_links } from "../data/nav_links";
+---
+
+<style is:global>
+nav {
+    background-color: #11111b;
+    display: grid;
+    justify-items: center;
+}
+
+nav>a, nav>a:visited {
+    color: #a5adce;
+    padding: 20px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+nav>a:first-child {
+    justify-self: left;
+    grid-row: 1;
+}
+
+nav>input {
+    display: none;
+}
+
+nav>label {
+    display: inline-block;
+    grid-row: 1;
+    justify-self: right;
+}
+
+nav>label~* {
+    display: none;
+    justify-self: center;
+}
+
+nav>input:checked~label~* {
+    display: inline-block;
+    grid-column: span 2;
+}
+
+@media (min-width: 840px) {
+    nav>label{
+        display: none;
+    }
+
+    nav {
+        display: block;
+    }
+
+    nav>input~a {
+        display: inline-block;
+    }
+
+    nav>input~a.sright~a {
+        float: right;
+    }
+
+    nav>a.current {
+        background-color: #0a0a0e;
+        color: #c6d0f5;
+    }
+}
+</style>
+
+<nav>
+    {<a href="/" class:list={{current: Astro.url.pathname === "/"}}>Martinmimi</a>}
+    <input type="checkbox" id="nav-menu">
+    <label for="nav-menu">☰</label>
+    { nav_links.map((link, index) =>
+    <a href={link.link} class:list={{
+        current: Astro.url.pathname === link.link,
+        sright: index === nav_links.length - 1,
+    }}>{link.title}</a>) }
+    <a href="https://github.com/wmartinmimi">Github</a>
+</nav>

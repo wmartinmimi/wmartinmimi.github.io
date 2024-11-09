@@ -1,0 +1,69 @@
+---
+import NavBar from "../components/NavBar.astro";
+import Footer from "../components/Footer.astro";
+import Title from "../components/Title.astro";
+
+const { title } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/png" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+        <meta name="color-scheme" content="dark">
+        <meta name="darkreader-lock">
+        <link rel="canonical" href={canonicalURL} />
+
+        <slot name="head" />
+
+		<title>{title}</title>
+		<style is:global>
+		body {
+			background: #0a0a0e;
+			color: #cdd6f4;
+		}
+
+		* {
+			border-color: #f1d151;
+			border-style: none;
+			border-width: 3px;
+			margin: 0;
+            font-family: 'JetBrainsMono';
+            font-weight: 350;
+		}
+
+		p {
+			margin: 20px 0;
+		}
+
+        a {
+            color: #89b4fa;
+        }
+
+        a:visited {
+            color: #cba6f7;
+        }
+
+        h2 {
+            color: #b4befe;
+        }
+
+        @font-face {
+            font-family: 'JetBrainsMono';
+            src: url('/jetbrains-mono.ttf') format('truetype');
+            font-display: swap;
+        }
+
+		</style>
+	</head>
+
+	<body>
+		<NavBar />
+		<Title title={title} />
+		<slot />
+		<Footer />
+	</body>
+</html>

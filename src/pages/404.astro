@@ -1,0 +1,40 @@
+---
+import Base from "../layouts/Base.astro";
+import Card from "../components/Card.astro";
+import { nav_links } from "../data/nav_links";
+---
+
+<style is:global>
+	
+ul {
+	list-style-type: none;
+	border-left: 3px solid #f1d151;
+	padding: 10px 0px 10px 20px;
+	margin-left: 20px;
+}
+
+li {
+	padding: 5px 0px;
+}
+
+</style>
+
+<Base title="Page Not Found - 404 Error">
+    <Card heading="Cannot Find Request Page">
+
+        <p>It seems that <code id="cl">your link</code> does not point to anywhere valid on this website.</p>
+
+        <p>Try check for any spelling mistakes on the link entered.</p>
+
+        <p>Alternatively, check out the following links!</p>
+
+        <ul>
+            { nav_links.map((project: any) => <li><a href={project.link}>{project.title}</a></li>) }
+        </ul>
+
+    </Card>
+
+    <script>
+    document.getElementById("cl")!.innerText = window.location.href;
+    </script>
+</Base>

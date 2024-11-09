@@ -1,0 +1,41 @@
+---
+const { title, description, link } = Astro.props;
+---
+
+<style is:global>
+a.project-card, a.project-card:visited {
+    border-style: solid;
+    padding: 20px;
+    border-radius: 5px;
+
+    color: #cdd6f4;
+    display: inline-block;
+    text-decoration: none;
+    margin: 20px;
+
+    vertical-align: top;
+}
+
+a.project-card:hover>h3 {
+    text-decoration: underline;
+}
+
+a:visited>div>h3{
+    color: #a6adc8;
+}
+
+a.project-card>p {
+    color: #a6adc8;
+}
+
+@media (min-width: 840px) {
+    a.project-card {
+        width: 40%;
+    }
+}
+</style>
+
+<a class="project-card" href={link}>
+    <h3>{title}</h3>
+    <p>{description}</p>
+</a>

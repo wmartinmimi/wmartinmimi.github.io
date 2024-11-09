@@ -1,0 +1,70 @@
+---
+import Base from "../layouts/Base.astro";
+import Card from "../components/Card.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { best_projects } from "../data/best_projects";
+import Color from "../components/Color.astro";
+---
+
+<style is:global>
+
+ul {
+	list-style-type: none;
+	border-left: 3px solid #f1d151;
+	padding: 10px 0px 10px 20px;
+	margin-left: 20px;
+}
+
+li {
+	padding: 5px 0px;
+}
+
+</style>
+
+<Base title="Hello From Martinmimi">
+    <meta name="google-site-verification" content="IFEo0aViUJ7CotXjN7L5ndXWPldnsmi6gnGiwDPKSx4" slot="head">
+
+	<Card heading="About Myself">
+		<p>Who doesn't love a simple introduction? :&gt;</p>
+
+		<ul>
+            <li><Color color="#a6e3a1">Enthusiastic</Color> programmer/learner</li>
+            <li><Color color="#f2cdcd">Hot chocolate</Color> enjoyer</li>
+            <li>Use primarily <Color color="#f38ba8">Java</Color></li>
+			<li>Currently trying new random things</li>
+		</ul>
+	</Card>
+
+	<Card heading="Best Projects">
+		<p>These are some of my projects that I'm the most proud of!</p>
+		<p>To check out all my projects, visit my project list <a href="/projects">Here</a>.</p>
+		{best_projects.map((project) => <ProjectCard {...project} />)}
+	</Card>
+
+    <Card heading="Tools">
+        <p>All programmers have favored tools up their digital belt.</p>
+        <p>Check out the <a href="/tools">Tools I use</a>.</p>
+    </Card>
+
+    <Card heading="Blogs">
+        <p>Yes. It is as empty as a desert.</p>
+        <p>See <a href="/blogs">Blogs</a>.</p>
+    </Card>
+
+    <Card heading="Links">
+        <p>Why use search engines?</p>
+        <p>Check out <a href="/links">Links</a> for some websites I personally collected.</p>
+    </Card>
+
+	<Card heading="Contacts">
+		<p>If you like to ask about anything, feel free to contact me!</p>
+		<ul>
+			<li>
+				<p>By Email: <a href="mailto:wmartinmimipub@gmail.com">wmartinmimipub@gmail.com</a></p>
+			</li>
+			<li>
+				<p>From Github: <a href="https://github.com/wmartinmimi">wmartinmimi</a></p>
+			</li>
+		</ul>
+	</Card>
+</Base>
