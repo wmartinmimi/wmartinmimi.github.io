@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://wmartinmimi.github.io',
+    site: 'https://martinmimi.pages.dev',
     output: 'static',
     outDir: 'docs',
     markdown: {
