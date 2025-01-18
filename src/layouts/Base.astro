@@ -32,7 +32,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 			border-style: none;
 			border-width: 3px;
 			margin: 0;
-            font-family: 'JetBrainsMono';
+            font-family: 'f';
             font-weight: 350;
 		}
 
@@ -53,8 +53,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         }
 
         @font-face {
-            font-family: 'JetBrainsMono';
+            font-family: 'f';
             src: url('/jetbrains-mono.ttf') format('truetype');
+            font-display: swap;
         }
 
 		</style>
