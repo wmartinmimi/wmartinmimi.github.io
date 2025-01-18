@@ -9,31 +9,45 @@
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    filter: blur(1.2px);
+    filter: blur(1px);
 }
 
 </style>
 <svg id="tbg">
     <defs>
         <symbol id="cross">
-            <line x1="0" y1="0" x2="10" y2="10" stroke="#313244" />
-            <line x1="10" y1="0" x2="0" y2="10" stroke="#313244" />
+            <line x1="0" y1="0" x2="10" y2="10" stroke="#45475a" />
+            <line x1="10" y1="0" x2="0" y2="10" stroke="#45475a" />
         </symbol>
         <symbol id="triangle">
-            <path d="M0 0 L5 10 L10 0 Z" fill="none" stroke="#313244" />
+            <path d="M0 0 L5 10 L10 0 Z" fill="none" stroke="#45475a" />
         </symbol>
     </defs>
 </svg>
 <script>
-let state = 2;
-let prng = (limit: number) => {
-    state = (1103515245 * state + 12345) % 2**31;
-    return state % limit;
-};
-const tbg = document.getElementById("tbg")!;
-let content = tbg.innerHTML;
-for (let i = 0; i < 100; i++) {
-    content += `<use href="#${["cross", "triangle"][prng(3)%2]}" x="${prng(window.innerWidth)}" y="${prng(window.innerHeight)}" />`;
+const win = window;
+const doc = document;
+const tbg = doc.getElementById("tbg")!;
+const base = tbg.innerHTML;
+let resize = () => {
+    let width = win.innerWidth, height = win.innerHeight;
+    let state = 3;
+    let prng = (limit: number) => {
+        state = (1103515245 * state + 12345) % 2**31;
+        return state % limit;
+    };
+    let content = base;
+    let x1 = 0, y1 = 0, gen = false;
+    for (let i = 0; i < width / 10; i++) {
+        let x = prng(width), y = prng(height);
+        if (gen) {
+            content += `<line x1="${x1}"y1="${y1}"x2="${x}"y2="${y}"stroke="#313244"/>`;
+        }
+        x1 = x, y1 = y, gen = prng(20) == 0;
+        content += `<use href="#${["cross", "triangle"][prng(3)%2]}"x="${x-5}"y="${y-5}"/>`;
+    }
+    tbg.innerHTML = content;
 }
-tbg.innerHTML = content;
+resize();
+win.onresize = resize;
 </script>
