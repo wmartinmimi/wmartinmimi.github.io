@@ -6,51 +6,23 @@ const { title } = Astro.props;
 #title {
     display: flex;
     justify-content: center;
+    margin: 40px;
+    margin-bottom: 0;
 }
 
 #title>div {
-    text-align: center;
-    padding: 30px 60px;
-
-    display: inline-block;
-
-    margin: 0 auto;
-}
-
-@media (min-width: 840px) {
-    #title>div {
-        margin-top: 20px;
-        transform: skewX(-25deg);
-        border-radius: 5px;
-        background-color: #110f1616;
-        backdrop-filter: blur(5px);
-    }
-
-    #title>div>div {
-        transform: skewX(25deg);
-    }
-}
-
-@media (max-width: 840px) {
-    #title {
-        background-color: #110f1616;
-        backdrop-filter: blur(5px);
-    }
-}
-
-#title>div>div {
     border-style: dashed none dashed none;
-    margin: 0 10px;
     padding: 5px 0;
+
+    text-align: center;
+    margin: 0 auto;
 }
 
 </style>
 
 <div id="title">
     <div>
-        <div>
             <h1>{title}</h1>
-        </div>
     </div>
 </div>
 
