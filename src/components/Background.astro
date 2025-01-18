@@ -25,12 +25,13 @@
     </defs>
 </svg>
 <script>
-const win = window;
-const doc = document;
-const tbg = doc.getElementById("tbg")!;
-const base = tbg.innerHTML;
+const
+    win = window,
+    doc = document,
+    tbg = doc.getElementById("tbg")!,
+    base = tbg.innerHTML;
 let resize = () => {
-    let width = win.innerWidth, height = win.innerHeight;
+    let width = win.outerWidth, height = win.outerHeight;
     let state = 3;
     let prng = (limit: number) => {
         state = (1103515245 * state + 12345) % 2**31;
