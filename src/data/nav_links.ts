@@ -1,19 +1,19 @@
 const nav_links = [
     {
         title: "Projects",
-        link: "/projects",
+        link: "/projects/",
     },
     {
         title: "Tools I use",
-        link: "/tools",
+        link: "/tools/",
     },
     {
         title: "Blogs",
-        link: "/blogs",
+        link: "/blogs/",
     },
     {
         title: "Links",
-        link: "/links",
+        link: "/links/",
     },
 ];
 
