@@ -16,11 +16,11 @@
 <svg id="tbg">
     <defs>
         <symbol id="cross">
-            <line x1="0" y1="0" x2="10" y2="10" stroke="#45475a" />
-            <line x1="10" y1="0" x2="0" y2="10" stroke="#45475a" />
+            <line x1="0" y1="0" x2="10" y2="10" stroke="#6c7086" />
+            <line x1="10" y1="0" x2="0" y2="10" stroke="#6c7086" />
         </symbol>
         <symbol id="triangle">
-            <path d="M0 0 L5 10 L10 0 Z" fill="none" stroke="#45475a" />
+            <path d="M0 0 L5 10 L10 0 Z" fill="none" stroke="#6c7086" />
         </symbol>
     </defs>
 </svg>
@@ -42,7 +42,7 @@ let resize = () => {
     for (let i = 0; i < width / 10; i++) {
         let x = prng(width), y = prng(height);
         if (gen) {
-            content += `<line x1="${x1}"y1="${y1}"x2="${x}"y2="${y}"stroke="#313244"/>`;
+            content += `<line x1="${x1}"y1="${y1}"x2="${x}"y2="${y}"stroke="#585b70"/>`;
         }
         x1 = x, y1 = y, gen = prng(20) == 0;
         content += `<use href="#${["cross", "triangle"][prng(3)%2]}"x="${x-5}"y="${y-5}"/>`;
