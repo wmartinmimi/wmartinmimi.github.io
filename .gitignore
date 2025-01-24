@@ -1,5 +1,5 @@
 # build output
-docs/
+build/
 # generated types
 .astro/
 
@@ -24,3 +24,6 @@ pnpm-debug.log*
 
 # vscode
 .vscode/
+
+# wrangler
+.wrangler/
