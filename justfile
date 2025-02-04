@@ -8,7 +8,7 @@ build_dir := 'build'
 export DO_NOT_TRACK := '1'
 
 # activate dev mode
-dev +args='':
+watch +args='':
     {{astro}} dev {{args}}
 
 # run linter
