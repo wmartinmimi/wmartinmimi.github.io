@@ -7,6 +7,12 @@ build_dir := 'build'
 
 export DO_NOT_TRACK := '1'
 
+alias w := watch
+alias l := lint
+alias b := build
+alias d := deploy
+alias u := upgrade
+
 # activate dev mode
 watch +args='':
     {{astro}} dev {{args}}
