@@ -6,7 +6,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vh;
+    width: auto;
+    height: 100vh;
     z-index: -1;
 }
 
@@ -36,10 +37,10 @@ const
     tbg = doc.getElementById("tbg")!,
     base = tbg.innerHTML;
 let resize = () => {
-    let width = 900, height = 1500;
-    if (win.innerWidth > win.innerHeight) { width = 1500, height = 900; }
+    let width = 901, height = 1601;
+    if (win.innerWidth > win.innerHeight) { width = 1601, height = 901; }
     tbg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-    let state = 4;
+    let state = 2;
     let prng = (limit: number) => {
         state = (1103515245 * state + 12345) % 2**31;
         return state % limit;
