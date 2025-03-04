@@ -14,7 +14,7 @@ alias d := deploy
 alias u := upgrade
 
 # activate dev mode
-watch +args='':
+watch +args='--host 0.0.0.0':
     {{astro}} dev {{args}}
 
 # run linter

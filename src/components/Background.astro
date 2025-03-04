@@ -6,9 +6,15 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100vh;
     z-index: -1;
+}
+
+@media (orientation: landscape) {
+    #tbg {
+        width: 100vw;
+        height: auto;
+    }
 }
 
 </style>
@@ -30,15 +36,17 @@ const
     tbg = doc.getElementById("tbg")!,
     base = tbg.innerHTML;
 let resize = () => {
-    let width = win.outerWidth, height = win.outerHeight;
-    let state = 3;
+    let width = 900, height = 1500;
+    if (win.innerWidth > win.innerHeight) { width = 1500, height = 900; }
+    tbg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    let state = 4;
     let prng = (limit: number) => {
         state = (1103515245 * state + 12345) % 2**31;
         return state % limit;
     };
     let content = base;
     let x1 = 0, y1 = 0, gen = false;
-    for (let i = 0; i < width / 10; i++) {
+    for (let i = 0; i < 200; i++) {
         let x = prng(width), y = prng(height);
         if (gen) {
             content += `<line x1="${x1}"y1="${y1}"x2="${x}"y2="${y}"stroke="#585b70"/>`;
