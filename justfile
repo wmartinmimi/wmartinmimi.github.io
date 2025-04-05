@@ -1,6 +1,9 @@
+set dotenv-load := true
+set dotenv-path := '.secrets/.env'
 
 npm := 'npm'
 npx := 'npx'
+uv := 'uv'
 astro := 'npx astro'
 wrangler := 'npx wrangler'
 build_dir := 'build'
@@ -12,6 +15,7 @@ alias l := lint
 alias b := build
 alias d := deploy
 alias u := upgrade
+alias p := purge
 
 # activate dev mode
 watch +args='--host 0.0.0.0':
@@ -30,6 +34,10 @@ deploy: build
     {{wrangler}} pages deploy {{build_dir}} --branch production --project-name martinmimi --commit-dirty=true
     -rm -r .wrangler/tmp
 
+# clean up cloud deployments
+purge:
+    {{uv}} run scripts/purge-deployments.py
+
 # setup dev environment
 setup:
     {{npm}} install
@@ -40,3 +48,4 @@ setup:
 upgrade: && lint
     {{npm}} update
     {{npx}} @astrojs/upgrade
+    {{uv}} sync --script script/purge-deployments.py
