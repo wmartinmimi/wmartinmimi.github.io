@@ -48,4 +48,4 @@ setup:
 upgrade: && lint
     {{npm}} update
     {{npx}} @astrojs/upgrade
-    {{uv}} sync --script script/purge-deployments.py
+    {{uv}} sync --script scripts/purge-deployments.py
