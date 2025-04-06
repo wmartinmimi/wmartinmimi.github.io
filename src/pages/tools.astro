@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Card from "../components/Card.astro";
+import Color from "../components/Color.astro";
 ---
 
 <style is:global>
@@ -13,17 +14,15 @@ import Card from "../components/Card.astro";
 <Base title="What I use">
     <Card heading="Programming Languages">
         <h3>Java</h3>
-        <p>Useful for Android and complex projects.</p>
+        <p>Useful for <Color color="#f38ba8">Android</Color> and complex projects.</p>
         <h3>Python</h3>
-        <p>Quick prototyping and one-off scripting.</p>
+        <p>Quick <Color color="#fab387">prototyping</Color> and <Color color="#fab387">one-off</Color> scripting.</p>
         <h3>Rust</h3>
-        <p>Typed python, it is nice to code in.</p>
+        <p>Typed python, it is <Color color="#cba6f7">nice</Color> to code in.</p>
         <h3>C, Zig</h3>
-        <p>To build small and quick programs and building understanding.</p>
+<p>To build <Color color="#a6e3a1">small</Color> and <Color color="#a6e3a1">quick</Color> programs and building understanding.</p>
         <h3>HTML, CSS, JS, TS</h3>
-        <p>Cause the web (websites and cloud functions).</p>
-        <h3>Golang</h3>
-        <p>For servers and headless programs.</p>
+        <p>Cause the web (<Color color="#89b4fa">websites</Color> and <Color color="#89b4fa">cloud</Color> functions).</p>
     </Card>
 
     <Card heading="Editors">
