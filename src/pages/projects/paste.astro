@@ -8,5 +8,10 @@ import Card from "../../components/Card.astro";
         <p>A simple paste bin service for my own private use.</p>
         <p>Webpage version is still in development.</p>
         <p>Curl version is available in <a href="https://paste.martinmimi.pages.dev">https://paste.martinmimi.pages.dev</a>.</p>
+
+        <form action="https://paste.martinmimi.pages.dev/once" enctype="multipart/form-data" method="post">
+            <input type="file" id="data" name="data">
+            <input type="submit" value="Once">
+        </form>
     </Card>
 </Base>
