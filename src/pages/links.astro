@@ -1,6 +1,13 @@
 ---
 import Base from "../layouts/Base.astro";
 import Card from "../components/Card.astro";
+
+const website_versions = [
+    'https://v1.martinmimi.pages.dev/?path=README.md',
+    'https://v2.martinmimi.pages.dev',
+    'https://v3.martinmimi.pages.dev',
+    'https://v4.martinmimi.pages.dev',
+]
 ---
 
 <Base title="Links">
@@ -20,6 +27,11 @@ import Card from "../components/Card.astro";
         <p>Below are website links to some fantastic / questionable people.</p>
         <p><a href="https://alexlostorto.github.io/">Alex Lo Storto</a></p>
         <p><a href="https://night0721.xyz/">Night</a></p>
+    </Card>
+
+    <Card heading="Website History">
+        <p>Below contains the previous major versions of this website.</p>
+        { website_versions.map((url, i) => <p><a href={url}>v{i + 1}</a></p>) }
     </Card>
 
 </Base>
