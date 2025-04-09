@@ -7,6 +7,8 @@ uv := 'uv'
 astro := 'npx astro'
 wrangler := 'npx wrangler'
 build_dir := 'build'
+docker := 'podman'
+archive := 'build/archive'
 
 export DO_NOT_TRACK := '1'
 
@@ -49,3 +51,22 @@ upgrade: && lint
     {{npm}} update
     {{npx}} @astrojs/upgrade
     {{uv}} sync --script scripts/purge-deployments.py
+
+archive version:
+    -rm -r {{archive}}/{{version}}
+    {{docker}} build . -f scripts/archiver/{{version}}.dockerfile --rm --output {{archive}}/{{version}}
+    @echo
+    @echo "archive {{version}} created at: {{archive}}/{{version}}"
+    @echo "note: run '{{docker}} image prune' to clean up unused images!"
+
+_deploy-archive version:
+    just archive {{version}}
+    {{wrangler}} pages deploy --project-name martinmimi --commit-dirty=true --branch {{version}} {{archive}}/{{version}}
+
+deploy-archives:
+    just _deploy-archive v1
+    just _deploy-archive v2
+    just _deploy-archive v3
+    just _deploy-archive v4
+    @echo "deployed all archives"
+
