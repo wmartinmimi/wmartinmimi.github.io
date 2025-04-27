@@ -8,16 +8,15 @@ const { title } = Astro.props;
     justify-content: center;
     margin: 40px;
     margin-bottom: 0;
+
+    & > div {
+        border-style: dashed none dashed none;
+        padding: 5px 0;
+
+        text-align: center;
+        margin: 0 auto;
+    }
 }
-
-#title>div {
-    border-style: dashed none dashed none;
-    padding: 5px 0;
-
-    text-align: center;
-    margin: 0 auto;
-}
-
 </style>
 
 <div id="title">

@@ -3,36 +3,35 @@ const { title, description, link } = Astro.props;
 ---
 
 <style is:global>
-a.project-card, a.project-card:visited {
-    border-style: solid;
-    padding: 20px;
-    border-radius: 5px;
+a.project-card {
 
-    background-color:#0a0a0e70;
-    color: #cdd6f4;
-    display: inline-block;
-    text-decoration: none;
-    margin: 20px 0;
+    &, &:visited {
+        border-style: solid;
+        padding: 20px;
+        border-radius: 5px;
 
-    vertical-align: top;
-}
+        background-color:#0a0a0e70;
+        color: #cdd6f4;
+        display: inline-block;
+        text-decoration: none;
+        margin: 20px 0;
 
-a.project-card:hover>h3 {
-    text-decoration: underline;
-}
+        vertical-align: top;
 
-a:visited>div>h3{
-    color: #a6adc8;
-}
+        @media (min-width: 840px) {
+            & {
+                width: 40%;
+                margin: 20px;
+            }
+        }
+    }
 
-a.project-card>p {
-    color: #a6adc8;
-}
+    &:hover > h3 {
+        text-decoration: underline;
+    }
 
-@media (min-width: 840px) {
-    a.project-card {
-        width: 40%;
-        margin: 20px;
+    & > p {
+        color: #a6adc8;
     }
 }
 </style>
