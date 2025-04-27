@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
     site: 'https://martinmimi.pages.dev',
     output: 'static',
-    outDir: 'build',
+    outDir: './build/output',
     markdown: {
         shikiConfig: {
             theme: 'catppuccin-mocha',

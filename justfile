@@ -6,7 +6,7 @@ npx := 'npx'
 uv := 'uv'
 astro := 'npx astro'
 wrangler := 'npx wrangler'
-build_dir := 'build'
+build_dir := 'build/output'
 docker := 'podman'
 archive := 'build/archive'
 
