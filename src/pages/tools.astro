@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Card from "../components/Card.astro";
 import Color from "../components/Color.astro";
+import Icons from "../components/Icons.astro";
 ---
 
 <style is:global>
@@ -13,25 +14,25 @@ import Color from "../components/Color.astro";
 
 <Base title="What I use">
     <Card heading="Programming Languages">
-        <h3>Java</h3>
+        <h3><Icons icon="openjdk" />Java</h3>
         <p>Useful for <Color color="#f38ba8">Android</Color> and complex projects.</p>
-        <h3>Python</h3>
+        <h3><Icons icon="python" />Python</h3>
         <p>Quick <Color color="#fab387">prototyping</Color> and <Color color="#fab387">one-off</Color> scripting.</p>
-        <h3>Rust</h3>
+        <h3><Icons icon="rust" />Rust</h3>
         <p>Typed python, it is <Color color="#cba6f7">nice</Color> to code in.</p>
-        <h3>C, Zig</h3>
-<p>To build <Color color="#a6e3a1">small</Color> and <Color color="#a6e3a1">quick</Color> programs and building understanding.</p>
-        <h3>HTML, CSS, JS, TS</h3>
+        <h3><Icons icon="zig" />Zig, C</h3>
+        <p>To build <Color color="#a6e3a1">small</Color> and <Color color="#a6e3a1">quick</Color> programs and building understanding.</p>
+<h3><Icons icon="html" />HTML, CSS,<Icons icon="javascript" />JS,<Icons icon="typescript" />TS</h3>
         <p>Cause the web (<Color color="#89b4fa">websites</Color> and <Color color="#89b4fa">cloud</Color> functions).</p>
     </Card>
 
     <Card heading="Editors">
-        <h3>Neovim</h3>
+        <h3><Icons icon="neovim" />Neovim</h3>
         <p>My primary editor, customised and really satisfying.</p>
         <p>See my nvim config <a href="https://github.com/wmartinmimi/nvim-config">Here</a>.</p>
-        <h3>Intellij IDEA</h3>
+        <h3><Icons icon="intellij" />Intellij IDEA</h3>
         <p>For Android and Java programming.</p>
-        <h3>Penpot</h3>
+        <h3><Icons icon="penpot" />Penpot</h3>
         <p>An open source UI designer web app.</p>
     </Card>
 
@@ -39,23 +40,23 @@ import Color from "../components/Color.astro";
         <h3>Jujitsu</h3>
         <p>My favorite and primary VCS.</p>
         <p>A simplified and powerful working-copy based version control system alternative, with a git compatible backend.</p>
-        <h3>Git/GitHub</h3>
+        <h3><Icons icon="git" />Git/<Icons icon="github" />GitHub</h3>
         <p>The primary store I use to store my code.</p>
     </Card>
 
     <Card heading="Markup Languages">
-        <h3>Typst</h3>
+        <h3><Icons icon="typst" />Typst</h3>
         <p>My primary markup choice.</p>
         <p>A modern LaTeX alternative. Source readable and easy to use.</p>
         <p>Used for note taking, document writing and typesetting.</p>
-        <h3>Markdown</h3>
+        <h3><Icons icon="markdown" />Markdown</h3>
         <p>Defacto standard markup language for code and documentation.</p>
     </Card>
 
     <Card heading="Coding Environments">
-        <h3>WSL 2</h3>
+        <h3><Icons icon="windows" />WSL 2</h3>
         <p>A comfy linux like environment in my laptop.</p>
-        <h3>Termux</h3>
+        <h3><Icons icon="android" />Termux</h3>
         <p>So I can program on the streets with my phone.</p>
         <p>Find more about Termux <a href="https://termux.dev/en/">Here</a>.</p>
     </Card>
