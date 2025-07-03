@@ -12,6 +12,16 @@ export default defineConfig({
             theme: 'catppuccin-mocha',
         },
     },
+    vite: {
+        build: {
+            rollupOptions: {
+                output: {
+                    entryFileNames: 'assets/[hash].js',
+                    chunkFileNames: 'assets/[hash].js',
+                },
+            },
+        },
+    },
     integrations: [sitemap({
         lastmod: new Date(new Date().toDateString()),
         entryLimit: 1000,
