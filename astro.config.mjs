@@ -18,6 +18,9 @@ export default defineConfig({
                 output: {
                     entryFileNames: 'assets/[hash].js',
                     chunkFileNames: 'assets/[hash].js',
+                    manualChunks: {
+                        three: ['three'],
+                    },
                 },
             },
         },

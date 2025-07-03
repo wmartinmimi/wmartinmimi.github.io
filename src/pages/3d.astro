@@ -16,20 +16,12 @@
 <body>
     <canvas id="view"></canvas>
     <noscript>Currently require javascript to run.</noscript>
-    <script type="importmap" is:inline>
-        {
-            "imports": {
-                "three": "https://cdn.jsdelivr.net/npm/three@0.177.0/build/three.module.js",
-                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.177.0/examples/jsm/"
-            }
-        }
-    </script>
-    <script type="module" is:inline>
+    <script>
         import * as THREE from 'three';
         import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
         import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 
-        const canvas = document.getElementById('view');
+        const canvas = document.getElementById('view')!;
 
         const scene = new THREE.Scene();
         const loader = new GLTFLoader();
