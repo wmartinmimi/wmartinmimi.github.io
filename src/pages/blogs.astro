@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro"
 import Card from "../components/Card.astro"
 
-let blogs:any = import.meta.glob("./blogs/*.astro", { eager: true, import: 'meta' });
+let blogs:any = import.meta.glob("./blogs/*/*.astro", { eager: true, import: 'meta' });
 for (const key in blogs) {
     blogs[key].url = new URL(key.replace(/.astro$/g, ''), Astro.site);
 }
