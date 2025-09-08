@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Card from "../components/Card.astro";
+import Color from "../components/Color.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 ---
 
@@ -17,6 +18,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 
     <Card heading="My Projects">
         <div id="pj"></div>
+        <p id="ind"><Color color="#9399b2">loading projects...</Color></p>
     </Card>
 
     <template id="pc">
@@ -26,6 +28,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 
     <script>
 const pc = document.getElementById("pc")! as HTMLTemplateElement;
+const ind = document.getElementById("ind")! as HTMLParagraphElement;
 
 function add_projects(projects: any) {
     for (let project of projects) {
@@ -41,7 +44,13 @@ function add_projects(projects: any) {
     }
 }
 
-fetch("https://api.github.com/users/martinmimigames/repos").then(response => response.json()).then(add_projects);
-fetch("https://api.github.com/users/wmartinmimi/repos").then(response => response.json()).then(add_projects);
+const p1 = fetch("https://api.github.com/users/martinmimigames/repos")
+    .then(response => response.json())
+    .then(add_projects);
+const p2 = fetch("https://api.github.com/users/wmartinmimi/repos")
+    .then(response => response.json())
+    .then(add_projects);
+
+Promise.all([p1, p2]).then(() => ind.remove())
     </script>
 </Base>

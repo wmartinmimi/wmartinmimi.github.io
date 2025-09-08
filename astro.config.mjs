@@ -15,6 +15,7 @@ export default defineConfig({
     vite: {
         build: {
             rollupOptions: {
+                treeshake: 'smallest',
                 output: {
                     entryFileNames: 'assets/[hash].js',
                     chunkFileNames: 'assets/[hash].js',
