@@ -1,0 +1,248 @@
+---
+import Base from "../../layouts/Base.astro";
+import Card from "../../components/Card.astro";
+---
+
+<style is:global>
+#location {
+    appearance: none;
+    border: 2px solid #1e1e2e;
+    background: #181825;
+    padding: 7px;
+    margin: 3px 10px;
+    transition: 0.4s;
+    color: #cdd6f4;
+
+    font-family: inherit;
+}
+
+#cmp {
+    display: none;
+    border: 2px solid #313244;
+    border-width: 1px 0px;
+
+    & > div {
+        border: 2px solid #313244;
+        border-width: 1px 2px;
+        background: #181825;
+        padding: 7px;
+
+        &[show="true"] {
+            border-top: 2px;
+            cursor: pointer;
+        }
+
+        &[show="false"] {
+            display: none;
+        }
+    }
+}
+
+</style>
+
+<Base title="Weather">
+    <Fragment slot="head">
+        <link rel="preload" href="/projects/weather/locations.json" as="fetch" />
+    </Fragment>
+
+    <Card heading="Location">
+        <label for="location">Location:</label>
+        <input id="location" type="text" placeholder="City, Country">
+        <div id="cmp"></div>
+        <template id="opt">
+            <div>
+                <span></span>
+            </div>
+        </template>
+    </Card>
+
+    <Card heading="Current Weather">
+        <div id="cur"></div>
+        <template id="cur-tpl">
+            <div id="cur">
+                <p>updated time: <span class="t"></span></p>
+                <p>weather code: <span class="wc"></span></p>
+                <p>temperature: <span class="rt"></span><span></span></p>
+                <p>apparent temperature: <span class="at"></span><span></span></p>
+                <p>relative humidity: <span class="hu"></span><span></span></p>
+                <p>precipitation: <span class="p"></span><span></span></p>
+                <p>wind speed: <span class="ws"></span><span></span></p>
+                <p>wind direction: <span class="wd"></span><span></span></p>
+                <p>wind gusts: <span class="wg"></span><span></span></p>
+                <p>cloud cover: <span class="cc"></span><span></span></p>
+                <p>surface pressure: <span class="sp"></span><span></span></p>
+            </div>
+        </template>
+    </Card>
+
+    <script>
+interface CurrentWeatherData {
+  latitude: number;
+  longitude: number;
+  generationtime_ms: number;
+  utc_offset_seconds: number;
+  timezone: string;
+  timezone_abbreviation: string;
+  elevation: number;
+  current_units: {
+    time: string;
+    interval: string;
+    temperature_2m: string;
+    relative_humidity_2m: string;
+    wind_speed_10m: string;
+    wind_direction_10m: string;
+    wind_gusts_10m: string;
+    precipitation: string;
+    cloud_cover: string;
+    weather_code: string;
+    apparent_temperature: string;
+    surface_pressure: string;
+  };
+  current: {
+    time: string;
+    interval: number;
+    temperature_2m: number;
+    relative_humidity_2m: number;
+    wind_speed_10m: number;
+    wind_direction_10m: number;
+    wind_gusts_10m: number;
+    precipitation: number;
+    cloud_cover: number;
+    weather_code: number;
+    apparent_temperature: number;
+    surface_pressure: number;
+  };
+}
+
+const cmp = document.getElementById("cmp")! as HTMLDivElement;
+const opt = document.getElementById("opt")! as HTMLTemplateElement;
+const input = document.getElementById("location")! as HTMLInputElement;
+
+window.onpopstate = (event: PopStateEvent) => {
+    if (event.state !== null) {
+        input.value = event.state;
+
+        filter(input.value)
+        const div = get_first();
+        if (div !== null) {
+            select(div);
+        }
+    }
+};
+
+fetch("/projects/weather/locations.json")
+    .then(response => response.json())
+    .then(locations => {
+        for (let country in locations) {
+            for (let city in locations[country]) {
+                const option = opt.content.cloneNode(true)! as DocumentFragment;
+                const span = option.querySelector("span")! as HTMLSpanElement;
+                const name = `${city}, ${country}`;
+                const location = locations[country][city];
+                const value = `latitude=${location.lat}&longitude=${location.lon}`;
+                span.textContent = name;
+                const div = option.querySelector("div")! as HTMLDivElement;
+                div.setAttribute("name", name);
+                div.setAttribute("value", value);
+                div.onclick = (_) => {
+                    save(div);
+                    select(div);
+                };
+                cmp.appendChild(option);
+            }
+        }
+
+        const search = new URLSearchParams(window.location.search);
+        input.value = search.get("location") ?? "";
+
+        filter(input.value)
+        const div = get_first();
+        if (div !== null) {
+            select(div);
+        }
+    });
+
+input.onkeyup = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+        const div = get_first();
+        if (div !== null) {
+            save(div);
+            select(div);
+        }
+    } else filter(input.value);
+};
+
+function save(div: HTMLDivElement) {
+    const url = new URL(window.location.href);
+    const name = div.getAttribute("name")!;
+    url.searchParams.set("location", name);
+    history.pushState(name, "", url);
+    select(div);
+}
+
+function select(div: HTMLDivElement) {
+    const name = div.getAttribute("name")!;
+    const value = div.getAttribute("value")!;
+    input.value = name;
+    get_weather(value);
+    filter(input.value);
+}
+
+function get_first(): HTMLDivElement | null {
+    if (input.value.length !== 0) {
+        for (let child of cmp.children) {
+            if (child.getAttribute("show")! === "true") {
+                return child as HTMLDivElement;
+            }
+        }
+    }
+    return null;
+}
+
+function filter(query: string) {
+    const visible = query.length !== 0;
+    if (visible) {
+        cmp.style.display = "block";
+    } else cmp.style.display = "none";
+    for (let child of cmp.children) {
+        const div = child as HTMLDivElement;
+        const name = child.getAttribute("name")!;
+        if (visible && name.toLowerCase().includes(query.toLowerCase())) {
+            div.setAttribute("show", "true");
+        } else div.setAttribute("show", "false");
+    }
+}
+
+function get_weather(location: string) {
+    fetch(`https://api.open-meteo.com/v1/forecast?${location}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation,cloud_cover,weather_code,apparent_temperature,surface_pressure`)
+        .then(response => response.json())
+        .then((data: CurrentWeatherData) => set_current_weather(data));
+}
+
+function set_current_weather(data: CurrentWeatherData) {
+    const tpl = document.getElementById("cur-tpl")! as HTMLTemplateElement;
+    const div = tpl.content.cloneNode(true)! as DocumentFragment;
+
+    function update(selector: string, val: String | Number, unit: string) {
+        const content = div.querySelector(selector)!;
+        content.textContent = String(val);
+        content.nextSibling!.textContent = unit;
+    }
+
+    div.querySelector(".t")!.textContent = data.current.time.replace("T", " ");
+    update(".rt", data.current.temperature_2m, data.current_units.temperature_2m);
+    update(".hu", data.current.relative_humidity_2m, data.current_units.relative_humidity_2m);
+    update(".ws", data.current.wind_speed_10m, data.current_units.wind_speed_10m);
+    update(".wd", data.current.wind_direction_10m, data.current_units.wind_direction_10m);
+    update(".wg", data.current.wind_gusts_10m, data.current_units.wind_gusts_10m);
+    update(".p", data.current.precipitation, data.current_units.precipitation);
+    update(".cc", data.current.cloud_cover, data.current_units.cloud_cover);
+    div.querySelector(".wc")!.textContent = String(data.current.weather_code);
+    update(".at", data.current.apparent_temperature, data.current_units.apparent_temperature);
+    update(".sp", data.current.surface_pressure, data.current_units.surface_pressure);
+
+    const cur = document.getElementById("cur")! as HTMLDivElement;
+    cur.outerHTML = div.querySelector("div")!.outerHTML;
+}
+    </script>
+</Base>
