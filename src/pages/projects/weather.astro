@@ -51,19 +51,17 @@ import Card from "../../components/Card.astro";
     <Card heading="Current Weather">
         <div id="cur"></div>
         <template id="cur-tpl">
-            <div id="cur">
-                <p>updated time: <span class="t"></span></p>
-                <p>weather code: <span class="wc"></span></p>
-                <p>temperature: <span class="rt"></span><span></span></p>
-                <p>apparent temperature: <span class="at"></span><span></span></p>
-                <p>relative humidity: <span class="hu"></span><span></span></p>
-                <p>precipitation: <span class="p"></span><span></span></p>
-                <p>wind speed: <span class="ws"></span><span></span></p>
-                <p>wind direction: <span class="wd"></span><span></span></p>
-                <p>wind gusts: <span class="wg"></span><span></span></p>
-                <p>cloud cover: <span class="cc"></span><span></span></p>
-                <p>surface pressure: <span class="sp"></span><span></span></p>
-            </div>
+            <p>updated time: <span class="t"></span></p>
+            <p>weather code: <span class="wc"></span></p>
+            <p>temperature: <span class="rt"></span><span></span></p>
+            <p>apparent temperature: <span class="at"></span><span></span></p>
+            <p>relative humidity: <span class="hu"></span><span></span></p>
+            <p>precipitation: <span class="p"></span><span></span></p>
+            <p>wind speed: <span class="ws"></span><span></span></p>
+            <p>wind direction: <span class="wd"></span><span></span></p>
+            <p>wind gusts: <span class="wg"></span><span></span></p>
+            <p>cloud cover: <span class="cc"></span><span></span></p>
+            <p>surface pressure: <span class="sp"></span><span></span></p>
         </template>
     </Card>
 
@@ -114,6 +112,7 @@ interface Suggestion {
 const cmp = document.getElementById("cmp")! as HTMLDivElement;
 const opt = document.getElementById("opt")! as HTMLTemplateElement;
 const input = document.getElementById("location")! as HTMLInputElement;
+const cur = document.getElementById("cur")! as HTMLDivElement;
 
 var global_suggestions: Suggestion[] = [];
 
@@ -124,7 +123,9 @@ window.onpopstate = (event: PopStateEvent) => {
         filter(input.value)
         const div = get_first();
         if (div !== null) {
-            select(div);
+            const name = div.getAttribute("name")!;
+            const location = div.getAttribute("value")!;
+            select(name, location);
         }
     }
 };
@@ -134,14 +135,11 @@ fetch("/projects/weather/locations.json")
     .then(locations => {
         global_suggestions = [];
         for (let country in locations) {
-            // get numbers of cities in country
-            var suggestions: Suggestion[] = [];
             for (let city in locations[country]) {
                 const coordinates = locations[country][city];
                 const location = `latitude=${coordinates.lat}&longitude=${coordinates.lon}`;
-                suggestions.push({ name: `${city}, ${country}`, location: location });
+                global_suggestions.push({ name: `${city}, ${country}`, location: location });
             }
-            global_suggestions.push(...suggestions);
         }
 
         const search = new URLSearchParams(window.location.search);
@@ -150,7 +148,9 @@ fetch("/projects/weather/locations.json")
         filter(input.value)
         const div = get_first();
         if (div !== null) {
-            select(div);
+            const name = div.getAttribute("name")!;
+            const location = div.getAttribute("value")!;
+            select(name, location);
         }
     });
 
@@ -158,25 +158,23 @@ input.onkeyup = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
         const div = get_first();
         if (div !== null) {
-            save(div);
-            select(div);
+            const name = div.getAttribute("name")!;
+            const location = div.getAttribute("value")!;
+            save(name);
+            select(name, location);
         }
     } else filter(input.value);
 };
 
-function save(div: HTMLDivElement) {
+function save(name: string) {
     const url = new URL(window.location.href);
-    const name = div.getAttribute("name")!;
     url.searchParams.set("location", name);
     history.pushState(name, "", url);
-    select(div);
 }
 
-function select(div: HTMLDivElement) {
-    const name = div.getAttribute("name")!;
-    const value = div.getAttribute("value")!;
+function select(name: string, location: string) {
     input.value = name;
-    get_weather(value);
+    get_weather(location);
     filter(input.value);
 }
 
@@ -214,8 +212,8 @@ function filter(query: string) {
         div.setAttribute("name", name);
         div.setAttribute("value", location);
         div.onclick = (_) => {
-            save(div);
-            select(div);
+            save(name);
+            select(name, location);
         };
         new_cmp.appendChild(option);
     }
@@ -224,6 +222,7 @@ function filter(query: string) {
 }
 
 function get_weather(location: string) {
+    cur.innerHTML = "<p>loading...</p>";
     fetch(`https://api.open-meteo.com/v1/forecast?${location}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation,cloud_cover,weather_code,apparent_temperature,surface_pressure`)
         .then(response => response.json())
         .then((data: CurrentWeatherData) => set_current_weather(data));
@@ -251,8 +250,8 @@ function set_current_weather(data: CurrentWeatherData) {
     update(".at", data.current.apparent_temperature, data.current_units.apparent_temperature);
     update(".sp", data.current.surface_pressure, data.current_units.surface_pressure);
 
-    const cur = document.getElementById("cur")! as HTMLDivElement;
-    cur.outerHTML = div.querySelector("div")!.outerHTML;
+    cur.innerHTML = "";
+    cur.appendChild(div);
 }
     </script>
 </Base>
