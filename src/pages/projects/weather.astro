@@ -26,15 +26,7 @@ import Card from "../../components/Card.astro";
         border-width: 1px 2px;
         background: #181825;
         padding: 7px;
-
-        &[show="true"] {
-            border-top: 2px;
-            cursor: pointer;
-        }
-
-        &[show="false"] {
-            display: none;
-        }
+        cursor: pointer;
     }
 }
 
@@ -114,9 +106,16 @@ interface CurrentWeatherData {
   };
 }
 
+interface Suggestion {
+    name: string;
+    location: string;
+}
+
 const cmp = document.getElementById("cmp")! as HTMLDivElement;
 const opt = document.getElementById("opt")! as HTMLTemplateElement;
 const input = document.getElementById("location")! as HTMLInputElement;
+
+var global_suggestions: Suggestion[] = [];
 
 window.onpopstate = (event: PopStateEvent) => {
     if (event.state !== null) {
@@ -133,23 +132,16 @@ window.onpopstate = (event: PopStateEvent) => {
 fetch("/projects/weather/locations.json")
     .then(response => response.json())
     .then(locations => {
+        global_suggestions = [];
         for (let country in locations) {
+            // get numbers of cities in country
+            var suggestions: Suggestion[] = [];
             for (let city in locations[country]) {
-                const option = opt.content.cloneNode(true)! as DocumentFragment;
-                const span = option.querySelector("span")! as HTMLSpanElement;
-                const name = `${city}, ${country}`;
-                const location = locations[country][city];
-                const value = `latitude=${location.lat}&longitude=${location.lon}`;
-                span.textContent = name;
-                const div = option.querySelector("div")! as HTMLDivElement;
-                div.setAttribute("name", name);
-                div.setAttribute("value", value);
-                div.onclick = (_) => {
-                    save(div);
-                    select(div);
-                };
-                cmp.appendChild(option);
+                const coordinates = locations[country][city];
+                const location = `latitude=${coordinates.lat}&longitude=${coordinates.lon}`;
+                suggestions.push({ name: `${city}, ${country}`, location: location });
             }
+            global_suggestions.push(...suggestions);
         }
 
         const search = new URLSearchParams(window.location.search);
@@ -162,8 +154,6 @@ fetch("/projects/weather/locations.json")
         }
     });
 
-let wait = false;
-
 input.onkeyup = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
         const div = get_first();
@@ -171,13 +161,7 @@ input.onkeyup = (event: KeyboardEvent) => {
             save(div);
             select(div);
         }
-    } else if (!wait) {
-        wait = true;
-        setTimeout(() => {
-            wait = false;
-            filter(input.value);
-        }, 500)
-    }
+    } else filter(input.value);
 };
 
 function save(div: HTMLDivElement) {
@@ -199,7 +183,7 @@ function select(div: HTMLDivElement) {
 function get_first(): HTMLDivElement | null {
     if (input.value.length !== 0) {
         for (let child of cmp.children) {
-            if (child.getAttribute("show")! === "true") {
+            if (child.getAttribute("show")! !== null) {
                 return child as HTMLDivElement;
             }
         }
@@ -213,13 +197,30 @@ function filter(query: string) {
     if (visible) {
         cmp.style.display = "block";
     } else cmp.style.display = "none";
-    for (let child of cmp.children) {
-        const div = child as HTMLDivElement;
-        const name = child.getAttribute("name")!;
-        if (visible && name.toLowerCase().includes(query.toLowerCase())) {
-            div.setAttribute("show", "true");
-        } else div.setAttribute("show", "false");
+
+    const new_cmp = document.createDocumentFragment();
+    const tmpl = opt.content.cloneNode(true) as DocumentFragment;
+
+    for (let suggestion of global_suggestions) {
+        const name = suggestion.name;
+        if (!visible || !name.toLowerCase().startsWith(query.toLowerCase())) {
+            continue;
+        };
+        const option = tmpl.cloneNode(true)! as DocumentFragment;
+        const location = suggestion.location;
+        const span = option.querySelector("span")! as HTMLSpanElement;
+        span.textContent = name;
+        const div = option.querySelector("div")! as HTMLDivElement;
+        div.setAttribute("name", name);
+        div.setAttribute("value", location);
+        div.onclick = (_) => {
+            save(div);
+            select(div);
+        };
+        new_cmp.appendChild(option);
     }
+    cmp.innerHTML = "";
+    cmp.appendChild(new_cmp);
 }
 
 function get_weather(location: string) {
