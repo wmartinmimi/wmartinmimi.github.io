@@ -27,15 +27,22 @@ import ProjectCard from "../components/ProjectCard.astro";
     </template>
 
     <script>
+interface Project {
+    full_name: string;
+    description: string;
+    homepage: string | null;
+    html_url?: string | null;
+}
+
 const pc = document.getElementById("pc")! as HTMLTemplateElement;
 const ind = document.getElementById("ind")! as HTMLParagraphElement;
 
-function add_projects(projects: any) {
+function add_projects(projects: Project[]) {
     for (let project of projects) {
         let card = pc.content.cloneNode(true)! as DocumentFragment;
         let link = project.homepage;
         if (link === null || link.length === 0) {
-            link = project.html_url;
+            link = project.html_url!;
         }
         card.querySelector("a")!.href = link;
         card.querySelector("h3")!.textContent = project.full_name;
@@ -44,13 +51,22 @@ function add_projects(projects: any) {
     }
 }
 
-const p1 = fetch("https://api.github.com/users/martinmimigames/repos")
+new Promise<void>(resolve => {
+        add_projects([
+            {
+                full_name: "weather_page",
+                description: "a simple weather report page to look at the weather",
+            homepage: "https://martinmimi.pages.dev/projects/weather",
+            },
+        ])
+        resolve();
+    })
+    .then(() => fetch("https://api.github.com/users/wmartinmimi/repos"))
     .then(response => response.json())
-    .then(add_projects);
-const p2 = fetch("https://api.github.com/users/wmartinmimi/repos")
+    .then(add_projects)
+    .then(() => fetch("https://api.github.com/users/martinmimigames/repos"))
     .then(response => response.json())
-    .then(add_projects);
-
-Promise.all([p1, p2]).then(() => ind.remove())
+    .then(add_projects)
+    .then(() => ind.remove());
     </script>
 </Base>
