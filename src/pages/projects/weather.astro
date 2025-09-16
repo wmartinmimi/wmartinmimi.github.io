@@ -162,6 +162,8 @@ fetch("/projects/weather/locations.json")
         }
     });
 
+let wait = false;
+
 input.onkeyup = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
         const div = get_first();
@@ -169,7 +171,13 @@ input.onkeyup = (event: KeyboardEvent) => {
             save(div);
             select(div);
         }
-    } else filter(input.value);
+    } else if (!wait) {
+        wait = true;
+        setTimeout(() => {
+            wait = false;
+            filter(input.value);
+        }, 500)
+    }
 };
 
 function save(div: HTMLDivElement) {
@@ -198,6 +206,7 @@ function get_first(): HTMLDivElement | null {
     }
     return null;
 }
+
 
 function filter(query: string) {
     const visible = query.length !== 0;
