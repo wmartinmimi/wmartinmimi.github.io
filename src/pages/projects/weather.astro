@@ -121,11 +121,9 @@ window.onpopstate = (event: PopStateEvent) => {
         input.value = event.state;
 
         filter(input.value)
-        const div = get_first();
-        if (div !== null) {
-            const name = div.getAttribute("name")!;
-            const location = div.getAttribute("value")!;
-            select(name, location);
+        const suggestion = get_first();
+        if (suggestion !== null) {
+            select(suggestion);
         }
     }
 };
@@ -146,76 +144,66 @@ fetch("/projects/weather/locations.json")
         input.value = search.get("location") ?? "";
 
         filter(input.value)
-        const div = get_first();
-        if (div !== null) {
-            const name = div.getAttribute("name")!;
-            const location = div.getAttribute("value")!;
-            select(name, location);
+        const suggestion = get_first();
+        if (suggestion !== null) {
+            select(suggestion);
         }
     });
 
 input.onkeyup = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
-        const div = get_first();
-        if (div !== null) {
-            const name = div.getAttribute("name")!;
-            const location = div.getAttribute("value")!;
-            save(name);
-            select(name, location);
+        const suggestion = get_first();
+        if (suggestion !== null) {
+            save(suggestion);
+            select(suggestion);
         }
     } else filter(input.value);
 };
 
-function save(name: string) {
+function save(suggestion: Suggestion) {
     const url = new URL(window.location.href);
-    url.searchParams.set("location", name);
-    history.pushState(name, "", url);
+    url.searchParams.set("location", suggestion.name);
+    history.pushState(suggestion.name, "", url);
 }
 
-function select(name: string, location: string) {
-    input.value = name;
-    get_weather(location);
-    filter(input.value);
+function select(suggestion: Suggestion) {
+    input.value = suggestion.name;
+    get_weather(suggestion.location);
+    filter(suggestion.name);
 }
 
-function get_first(): HTMLDivElement | null {
-    if (input.value.length !== 0) {
-        for (let child of cmp.children) {
-            if (child.getAttribute("show")! !== null) {
-                return child as HTMLDivElement;
-            }
-        }
-    }
-    return null;
+function get_first(): Suggestion | null {
+    const first = cmp.firstElementChild as (HTMLDivElement | null)
+    return (first === null) ? null : {
+        name: first.getAttribute("name")!, location: first.getAttribute("value")!
+    };
 }
 
 
 function filter(query: string) {
     const visible = query.length !== 0;
-    if (visible) {
-        cmp.style.display = "block";
-    } else cmp.style.display = "none";
+    cmp.style.display = (visible) ? "block" : "none";
 
     const new_cmp = document.createDocumentFragment();
     const tmpl = opt.content.cloneNode(true) as DocumentFragment;
 
-    for (let suggestion of global_suggestions) {
-        const name = suggestion.name;
-        if (!visible || !name.toLowerCase().startsWith(query.toLowerCase())) {
-            continue;
-        };
-        const option = tmpl.cloneNode(true)! as DocumentFragment;
-        const location = suggestion.location;
-        const span = option.querySelector("span")! as HTMLSpanElement;
-        span.textContent = name;
-        const div = option.querySelector("div")! as HTMLDivElement;
-        div.setAttribute("name", name);
-        div.setAttribute("value", location);
-        div.onclick = (_) => {
-            save(name);
-            select(name, location);
-        };
-        new_cmp.appendChild(option);
+    if (visible) {
+        for (let suggestion of global_suggestions) {
+            if (!suggestion.name.toLowerCase().startsWith(query.toLowerCase())) {
+                continue;
+            };
+            const option = tmpl.cloneNode(true)! as DocumentFragment;
+            const span = option.querySelector("span")! as HTMLSpanElement;
+            span.textContent = suggestion.name;
+            const div = option.querySelector("div")! as HTMLDivElement;
+            div.setAttribute("name", suggestion.name);
+            div.setAttribute("value", suggestion.location);
+            div.onclick = (_) => {
+                save(suggestion);
+                select(suggestion);
+            };
+            new_cmp.appendChild(option);
+        }
     }
     cmp.innerHTML = "";
     cmp.appendChild(new_cmp);
@@ -238,17 +226,19 @@ function set_current_weather(data: CurrentWeatherData) {
         content.nextSibling!.textContent = unit;
     }
 
-    div.querySelector(".t")!.textContent = data.current.time.replace("T", " ");
-    update(".rt", data.current.temperature_2m, data.current_units.temperature_2m);
-    update(".hu", data.current.relative_humidity_2m, data.current_units.relative_humidity_2m);
-    update(".ws", data.current.wind_speed_10m, data.current_units.wind_speed_10m);
-    update(".wd", data.current.wind_direction_10m, data.current_units.wind_direction_10m);
-    update(".wg", data.current.wind_gusts_10m, data.current_units.wind_gusts_10m);
-    update(".p", data.current.precipitation, data.current_units.precipitation);
-    update(".cc", data.current.cloud_cover, data.current_units.cloud_cover);
-    div.querySelector(".wc")!.textContent = String(data.current.weather_code);
-    update(".at", data.current.apparent_temperature, data.current_units.apparent_temperature);
-    update(".sp", data.current.surface_pressure, data.current_units.surface_pressure);
+    const current = data.current;
+    const current_units = data.current_units;
+    div.querySelector(".t")!.textContent = current.time.replace("T", " ");
+    update(".rt", current.temperature_2m, current_units.temperature_2m);
+    update(".hu", current.relative_humidity_2m, current_units.relative_humidity_2m);
+    update(".ws", current.wind_speed_10m, current_units.wind_speed_10m);
+    update(".wd", current.wind_direction_10m, current_units.wind_direction_10m);
+    update(".wg", current.wind_gusts_10m, current_units.wind_gusts_10m);
+    update(".p", current.precipitation, current_units.precipitation);
+    update(".cc", current.cloud_cover, current_units.cloud_cover);
+    div.querySelector(".wc")!.textContent = String(current.weather_code);
+    update(".at", current.apparent_temperature, current_units.apparent_temperature);
+    update(".sp", current.surface_pressure, current_units.surface_pressure);
 
     cur.innerHTML = "";
     cur.appendChild(div);
