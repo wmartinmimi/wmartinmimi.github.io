@@ -27,14 +27,22 @@ watch +args='--host 0.0.0.0':
 lint:
     {{astro}} check
 
+clean:
+    rm -r ./build
+
 # run production build
-build: lint
+build: clean lint
     {{astro}} build
 
 # deploy to cloud
 deploy: build
     {{wrangler}} pages deploy {{build_dir}} --branch production --project-name martinmimi --commit-dirty=true
     -rm -r .wrangler/tmp
+
+    -rclone check --download {{build_dir}} w10site: --differ ./build/differ.txt --missing-on-dst ./build/dst-missing.txt --missing-on-src ./build/src-missing.txt --progress
+    @cat ./build/differ.txt ./build/dst-missing.txt ./build/src-missing.txt > ./build/mirror.txt
+    @echo "found "$(cat ./build/mirror.txt | wc -l)" changes"
+    rclone sync {{build_dir}} w10site: --files-from-raw ./build/mirror.txt --ignore-times --progress
 
 # clean up cloud deployments
 purge:
