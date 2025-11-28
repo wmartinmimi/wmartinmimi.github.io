@@ -1,11 +1,11 @@
 set dotenv-load := true
 set dotenv-path := '.secrets/.env'
 
-npm := 'npm'
-npx := 'npx'
+bun := 'bun'
+bunx := 'bunx'
 uv := 'uv'
-astro := 'npx astro'
-wrangler := 'npx wrangler'
+astro := 'bunx astro'
+wrangler := 'bunx wrangler'
 build_dir := 'build/output'
 docker := 'podman'
 archive := 'build/archive'
@@ -50,14 +50,14 @@ purge:
 
 # setup dev environment
 setup:
-    {{npm}} install
+    {{bun}} install --ignore-scripts
     {{astro}} telemetry disable
     {{wrangler}} telemetry disable
 
 # update dependencies
 upgrade: && lint
-    {{npm}} update
-    {{npx}} @astrojs/upgrade
+    {{bun}} update --ignore-scripts
+    {{bunx}} @astrojs/upgrade
     {{uv}} sync --script scripts/purge-deployments.py
 
 archive version:
