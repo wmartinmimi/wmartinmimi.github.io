@@ -75,10 +75,12 @@ nav {
     {<a href="/" class:list={{current: Astro.url.pathname === "/"}}>Martinmimi</a>}
     <input type="checkbox" id="nav-menu">
     <label for="nav-menu">☰</label>
-    { nav_links.map((link, index) =>
-    <a href={link.link} class:list={{
-        current: Astro.url.pathname === link.link,
-        sright: index === nav_links.length - 1,
-    }}>{link.title}</a>) }
+    { nav_links.map((link, index) => <>
+        <a href={link.link} class:list={{
+            current: Astro.url.pathname === link.link,
+            sright: index === nav_links.length - 1,
+        }}>{link.title}</a>
+        {" "}
+    </>) }
     <a href="https://github.com/wmartinmimi">Github</a>
 </nav>
