@@ -1,11 +1,11 @@
 set dotenv-load := true
-set dotenv-path := '.secrets/.env'
+set dotenv-path := '.env'
 
-bun := 'bun'
-bunx := 'bunx'
+bun := 'deno'
+bunx := 'deno run'
 uv := 'uv'
-astro := 'bunx astro'
-wrangler := 'bunx wrangler'
+astro := 'deno npm:astro'
+wrangler := 'deno npm:wrangler'
 build_dir := 'build/output'
 docker := 'podman'
 archive := 'build/archive'
