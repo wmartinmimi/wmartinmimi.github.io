@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Card from "../components/Card.astro";
+import Color from "../components/Color.astro";
 
 const website_versions = [
     'https://v1.martinmimi.pages.dev/?path=README.md',
@@ -11,6 +12,14 @@ const website_versions = [
 ---
 
 <Base title="Links">
+
+    <Card heading="Books">
+        <p>Below contains programming books that I enjoyed reading.</p>
+        <p><a href="https://www.dataorienteddesign.com/dodbook/">Data oriented design</a>
+        <Color color="#a6adc8"> [Online version, completed 2026]</Color></p>
+        <p>High Performance Computing
+        <Color color="#a6adc8"> [ISBN 156592312X, completed 2025]</Color></p>
+    </Card>
 
     <Card heading="Content">
         <p>Below contains content that I have found amusing to consume.</p>
