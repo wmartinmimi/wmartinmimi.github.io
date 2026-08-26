@@ -11,12 +11,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/sitemap": "^3.4.1",
-    "@types/three": "^0.178.0",
-    "astro": "5.11.0",
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/sitemap": "^3.7.3",
+    "@types/three": "^0.178.1",
+    "astro": "7.2.6",
     "three": "^0.178.0",
-    "typescript": "^5.8.3",
-    "wrangler": "^4.98.0"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.125.0"
   }
 }

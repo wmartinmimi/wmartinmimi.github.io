@@ -13,14 +13,23 @@ export default defineConfig({
         },
     },
     vite: {
-        build: {
-            rollupOptions: {
-                treeshake: 'smallest',
-                output: {
-                    entryFileNames: 'assets/[hash].js',
-                    chunkFileNames: 'assets/[hash].js',
-                    manualChunks: {
-                        three: ['three'],
+        environments: {
+            client: {
+                build: {
+                    rolldownOptions: {
+                        output: {
+                            entryFileNames: 'assets/[hash].js',
+                            chunkFileNames: 'assets/[hash].js',
+                            codeSplitting: {
+                                groups: [
+                                    {
+                                        name: 'three',
+                                        test: /node_modules[\\/]three/,
+                                        maxSize: 500000,
+                                    },
+                                ],
+                            },
+                        },
                     },
                 },
             },
