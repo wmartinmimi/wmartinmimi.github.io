@@ -35,17 +35,7 @@ build() {
     deno --allow-all npm:astro build
 }
 
-deploy() {
-    build
-
-    deno --allow-all npm:wrangler pages deploy \
-        "$build_dir" \
-        --branch production \
-        --project-name martinmimi \
-        --commit-dirty=true
-
-    rm -rf .wrangler/tmp
-
+w10_retry() {
     rclone check \
         --download \
         "$build_dir" \
@@ -69,6 +59,20 @@ deploy() {
         --files-from-raw ./build/mirror.txt \
         --ignore-times \
         --progress
+}
+
+deploy() {
+    build
+
+    deno --allow-all npm:wrangler pages deploy \
+        "$build_dir" \
+        --branch production \
+        --project-name martinmimi \
+        --commit-dirty=true
+
+    rm -rf .wrangler/tmp
+
+    # w10_retry
 }
 
 purge() {
@@ -140,6 +144,7 @@ Commands:
     setup
     archive <version>  # e.g. $0 archive v3
     deploy-archives    # deploy all archives
+    w10-retry
     help
 EOF
 }
@@ -179,6 +184,9 @@ case "${1:-}" in
         ;;
     deploy-archives)
         deploy_archives
+        ;;
+    w10-retry)
+        w10_retry
         ;;
     *)
         docs
